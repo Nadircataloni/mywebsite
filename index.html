@@ -3216,7 +3216,12 @@ const label=document.getElementById("withdrawAddressLabel");
 const error=document.getElementById("withdrawAddressError");
 
 input.value="";
+input.removeAttribute("value");
 error.style.display="none";
+
+setTimeout(function(){
+    input.value="";
+},50);
 
 if(method==="USDT-TRC20"){
 
@@ -3262,6 +3267,26 @@ document.getElementById("withdrawAddressModal").style.display="none";
 
 });
 
+
+/* إغلاق نافذة السحب - حماية إضافية */
+document.addEventListener("click",function(event){
+
+const closeButton=event.target.closest("#withdrawAddressClose");
+
+if(closeButton){
+
+event.preventDefault();
+event.stopPropagation();
+
+const modal=document.getElementById("withdrawAddressModal");
+
+if(modal){
+    modal.style.display="none";
+}
+
+}
+
+});
 
 /* تأكيد السحب */
 
@@ -3673,6 +3698,8 @@ position:relative;
 
 <button
 id="withdrawAddressClose"
+type="button"
+onclick="document.getElementById('withdrawAddressModal').style.display='none';"
 style="
 position:absolute;
 top:12px;
@@ -3722,7 +3749,10 @@ margin-bottom:8px;
 <input
 id="withdrawAddressInput"
 type="text"
-autocomplete="off"
+name="withdrawal_wallet_address"
+autocomplete="new-password"
+autocapitalize="off"
+spellcheck="false"
 placeholder="أدخل عنوان السحب"
 style="
 width:100%;
