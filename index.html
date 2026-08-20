@@ -1730,7 +1730,7 @@ text-align:center;
 
 <div style="background:#f0f8f4;padding:20px;border-radius:14px;margin-top:20px">
 
-<label id="withdrawAmountLabel">مبلغ السحب</label>
+<label id="withdrawAmountLabel">مبلغ السحب — الحد الأدنى 10 USDT</label>
 
 <input
 id="withdrawAmount"
@@ -3198,9 +3198,9 @@ const amount=document.getElementById("withdrawAmount").value;
 
 const message=document.getElementById("withdrawMessage");
 
-if(!amount || Number(amount)<=0){
+if(!amount || Number(amount)<10){
 
-message.textContent="يرجى إدخال مبلغ صحيح.";
+message.textContent="الحد الأدنى للسحب هو 10 USDT.";
 message.style.color="#b33";
 
 return;
