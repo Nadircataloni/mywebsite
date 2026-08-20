@@ -450,63 +450,119 @@ updateSupportText(localStorage.getItem("language") || "ar");
 
 
 
+
 <style>
-.auth-overlay{
+/* ===== نظام الحساب الجديد ===== */
+
+.auth-page{
+display:none;
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.55);
-display:none;
+background:#f4f7f6;
+z-index:10000;
+overflow-y:auto;
+}
+
+.auth-top{
+height:70px;
+background:#fff;
+border-bottom:1px solid #e6ebe8;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 5%;
+}
+
+.auth-logo{
+font-size:24px;
+font-weight:800;
+color:#087b55;
+}
+
+.auth-home{
+background:#eef7f3;
+color:#087b55;
+border:0;
+border-radius:9px;
+padding:10px 16px;
+cursor:pointer;
+}
+
+.auth-content{
+min-height:calc(100vh - 70px);
+display:flex;
 align-items:center;
 justify-content:center;
-z-index:10000;
-padding:20px;
+padding:30px 20px;
 }
 
-.auth-box{
+.auth-card{
+width:100%;
+max-width:430px;
 background:#fff;
-width:100%;
-max-width:380px;
-border-radius:18px;
-padding:25px;
-box-shadow:0 15px 45px rgba(0,0,0,.25);
-position:relative;
+border-radius:20px;
+padding:35px;
+box-shadow:0 10px 40px rgba(0,0,0,.08);
 }
 
-.auth-box h2{
-margin:0 0 20px;
-color:#087b55;
+.auth-card h1{
+margin:0 0 8px;
 text-align:center;
+color:#172033;
+font-size:28px;
 }
 
-.auth-box input{
+.auth-card .sub{
+text-align:center;
+color:#68756f;
+margin:0 0 25px;
+font-size:14px;
+}
+
+.auth-card label{
+display:block;
+font-size:14px;
+font-weight:bold;
+margin:14px 0 6px;
+}
+
+.auth-card input{
 width:100%;
-padding:13px;
-margin:7px 0;
+padding:13px 14px;
 border:1px solid #dfe5e2;
-border-radius:9px;
+border-radius:10px;
 font-size:15px;
+outline:none;
 }
 
-.auth-submit{
+.auth-card input:focus{
+border-color:#087b55;
+}
+
+.auth-main-btn{
 width:100%;
+margin-top:20px;
+padding:14px;
 background:#087b55;
 color:#fff;
-margin-top:12px;
+border:0;
+border-radius:10px;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
 }
 
-.auth-close{
-position:absolute;
-top:10px;
-left:12px;
-background:#f1f3f4;
-color:#555;
-padding:7px 11px;
+.auth-message{
+text-align:center;
+margin-top:12px;
+font-size:13px;
+min-height:18px;
 }
 
 .auth-switch{
 text-align:center;
-margin-top:15px;
-font-size:13px;
+margin-top:20px;
+font-size:14px;
 color:#68756f;
 }
 
@@ -516,27 +572,25 @@ font-weight:bold;
 cursor:pointer;
 }
 
-.auth-message{
-text-align:center;
-font-size:13px;
-margin-top:10px;
-min-height:18px;
-}
+/* ===== لوحة المستخدم ===== */
 
-.dashboard{
+.dashboard-page{
 display:none;
 min-height:100vh;
 background:#f4f7f6;
 }
 
-.dashboard-header{
+.dashboard-top{
 background:#fff;
-padding:18px 5%;
 border-bottom:1px solid #e6ebe8;
+padding:14px 5%;
 display:flex;
-justify-content:space-between;
 align-items:center;
+justify-content:space-between;
 gap:15px;
+position:sticky;
+top:0;
+z-index:50;
 }
 
 .dashboard-logo{
@@ -545,18 +599,36 @@ font-weight:800;
 color:#087b55;
 }
 
-.dashboard-user{
-font-size:14px;
-color:#68756f;
+.dashboard-actions{
+display:flex;
+gap:8px;
+align-items:center;
 }
 
-.dashboard-main{
-max-width:1100px;
+.dashboard-actions button{
+border:0;
+border-radius:9px;
+padding:10px 14px;
+cursor:pointer;
+}
+
+.home-btn{
+background:#eef7f3;
+color:#087b55;
+}
+
+.logout-btn{
+background:#f8eeee;
+color:#b33;
+}
+
+.dashboard-container{
+max-width:1150px;
 margin:auto;
-padding:40px 20px;
+padding:30px 20px 60px;
 }
 
-.welcome-card{
+.dashboard-welcome{
 background:linear-gradient(135deg,#075c42,#10a16d);
 color:#fff;
 border-radius:20px;
@@ -564,172 +636,274 @@ padding:30px;
 margin-bottom:25px;
 }
 
-.welcome-card h1{
-margin:0 0 10px;
-font-size:28px;
+.dashboard-welcome h1{
+margin:0 0 8px;
+font-size:29px;
 }
 
-.balance-grid{
+.dashboard-welcome p{
+margin:0;
+color:#e8fff6;
+}
+
+.stats{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:20px;
+gap:18px;
 margin-bottom:25px;
 }
 
-.balance-card{
+.stat{
 background:#fff;
 border-radius:16px;
-padding:25px;
-box-shadow:0 6px 25px rgba(0,0,0,.06);
+padding:23px;
+box-shadow:0 5px 22px rgba(0,0,0,.05);
 }
 
-.balance-card span{
+.stat-title{
 color:#68756f;
 font-size:14px;
 }
 
-.balance-card strong{
+.stat-value{
 display:block;
 font-size:27px;
+font-weight:800;
 color:#087b55;
-margin-top:10px;
+margin-top:9px;
 }
 
-.dashboard-section{
+.dashboard-box{
 background:#fff;
-border-radius:16px;
+border-radius:18px;
 padding:25px;
-box-shadow:0 6px 25px rgba(0,0,0,.06);
-margin-bottom:25px;
+box-shadow:0 5px 22px rgba(0,0,0,.05);
+margin-bottom:22px;
 }
 
-.logout{
-background:#f5eeee;
-color:#b33;
+.dashboard-box h2{
+margin:0 0 18px;
+font-size:22px;
 }
 
-.back-home{
-background:#eef7f3;
+.inner-projects{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+}
+
+.inner-project{
+border:1px solid #edf1ef;
+border-radius:14px;
+padding:18px;
+}
+
+.inner-project h3{
+margin:0 0 12px;
+font-size:18px;
+}
+
+.inner-row{
+display:flex;
+justify-content:space-between;
+padding:8px 0;
+border-bottom:1px solid #edf0ef;
+font-size:13px;
+}
+
+.inner-value{
+font-weight:bold;
 color:#087b55;
+}
+
+.referral-box{
+background:#f0f8f4;
+border-radius:14px;
+padding:20px;
+}
+
+.referral-link{
+background:#fff;
+border:1px solid #dce8e2;
+border-radius:9px;
+padding:12px;
+word-break:break-all;
+margin:12px 0;
+font-size:13px;
+direction:ltr;
+text-align:left;
+}
+
+.copy-ref{
+background:#087b55;
+color:#fff;
+border:0;
+border-radius:9px;
+padding:10px 16px;
+cursor:pointer;
 }
 
 @media(max-width:700px){
-.balance-grid{
+.stats{
 grid-template-columns:1fr;
 }
 
-.dashboard-header{
+.dashboard-top{
 flex-direction:column;
-text-align:center;
 }
 
-.welcome-card h1{
-font-size:23px;
+.dashboard-actions{
+width:100%;
+justify-content:center;
+}
+
+.auth-card{
+padding:25px 20px;
 }
 }
 </style>
 
-<div class="auth-overlay" id="authOverlay">
-<div class="auth-box">
+<!-- صفحة تسجيل الدخول -->
+<div class="auth-page" id="loginPage">
 
-<button class="auth-close" id="authClose">✕</button>
-
-<div id="registerForm">
-<h2>إنشاء حساب</h2>
-
-<input id="regName" type="text" placeholder="الاسم">
-<input id="regEmail" type="email" placeholder="البريد الإلكتروني">
-<input id="regPassword" type="password" placeholder="كلمة المرور">
-
-<button class="auth-submit" id="createAccount">إنشاء الحساب</button>
-
-<div class="auth-message" id="regMessage"></div>
-
-<div class="auth-switch">
-لديك حساب بالفعل؟
-<span id="showLogin">تسجيل الدخول</span>
-</div>
+<div class="auth-top">
+<div class="auth-logo">ربح تراكمي</div>
+<button class="auth-home" onclick="closeAuthPages()">الرئيسية</button>
 </div>
 
-<div id="loginForm" style="display:none">
+<div class="auth-content">
+<div class="auth-card">
 
-<h2>تسجيل الدخول</h2>
+<h1>تسجيل الدخول</h1>
+<p class="sub">ادخل إلى حسابك للمتابعة</p>
 
-<input id="loginEmail" type="email" placeholder="البريد الإلكتروني">
-<input id="loginPassword" type="password" placeholder="كلمة المرور">
+<label>البريد الإلكتروني</label>
+<input id="loginEmailNew" type="email" autocomplete="email">
 
-<button class="auth-submit" id="loginAccount">تسجيل الدخول</button>
+<label>كلمة المرور</label>
+<input id="loginPasswordNew" type="password" autocomplete="current-password">
 
-<div class="auth-message" id="loginMessage"></div>
+<button class="auth-main-btn" id="loginNewBtn">تسجيل الدخول</button>
+
+<div class="auth-message" id="loginNewMsg"></div>
 
 <div class="auth-switch">
 ليس لديك حساب؟
-<span id="showRegister">إنشاء حساب</span>
-</div>
-
+<span onclick="openRegisterPage()">إنشاء حساب</span>
 </div>
 
 </div>
 </div>
+</div>
 
-<div class="dashboard" id="dashboard">
+<!-- صفحة إنشاء الحساب -->
+<div class="auth-page" id="registerPage">
 
-<div class="dashboard-header">
+<div class="auth-top">
+<div class="auth-logo">ربح تراكمي</div>
+<button class="auth-home" onclick="closeAuthPages()">الرئيسية</button>
+</div>
+
+<div class="auth-content">
+<div class="auth-card">
+
+<h1>إنشاء حساب</h1>
+<p class="sub">أنشئ حسابك وابدأ الآن</p>
+
+<label>الاسم</label>
+<input id="regNameNew" type="text" autocomplete="name">
+
+<label>البريد الإلكتروني</label>
+<input id="regEmailNew" type="email" autocomplete="email">
+
+<label>كلمة المرور</label>
+<input id="regPasswordNew" type="password" autocomplete="new-password">
+
+<button class="auth-main-btn" id="registerNewBtn">إنشاء الحساب</button>
+
+<div class="auth-message" id="registerNewMsg"></div>
+
+<div class="auth-switch">
+لديك حساب بالفعل؟
+<span onclick="openLoginPage()">تسجيل الدخول</span>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- لوحة المستخدم -->
+<div class="dashboard-page" id="dashboardPage">
+
+<div class="dashboard-top">
 
 <div class="dashboard-logo">ربح تراكمي</div>
 
-<div>
-<span class="dashboard-user" id="dashboardUser"></span>
-<button class="logout" id="logout">تسجيل الخروج</button>
-<button class="back-home" id="backHome">الرئيسية</button>
+<div class="dashboard-actions">
+<button class="home-btn" onclick="backToWebsite()">الرئيسية</button>
+<button class="logout-btn" onclick="logoutNew()">تسجيل الخروج</button>
 </div>
 
 </div>
 
-<div class="dashboard-main">
+<div class="dashboard-container">
 
-<div class="welcome-card">
-
-<h1 id="dashboardWelcome">مرحبًا بك 👋</h1>
-
-<p>هذه هي واجهتك الشخصية في موقع ربح تراكمي.</p>
-
+<div class="dashboard-welcome">
+<h1 id="dashWelcome">مرحبًا بك 👋</h1>
+<p>هذه هي لوحة حسابك الشخصية.</p>
 </div>
 
-<div class="balance-grid">
+<div class="stats">
 
-<div class="balance-card">
-<span>الرصيد</span>
-<strong>$0.00</strong>
+<div class="stat">
+<span class="stat-title">الرصيد</span>
+<strong class="stat-value">$0.00</strong>
 </div>
 
-<div class="balance-card">
-<span>الأرباح</span>
-<strong>$0.00</strong>
+<div class="stat">
+<span class="stat-title">الأرباح</span>
+<strong class="stat-value">$0.00</strong>
 </div>
 
-<div class="balance-card">
-<span>المشاريع النشطة</span>
-<strong>0</strong>
+<div class="stat">
+<span class="stat-title">المشاريع النشطة</span>
+<strong class="stat-value">0</strong>
 </div>
 
 </div>
 
-<div class="dashboard-section">
-
-<h2>حسابي</h2>
-
-<p>البريد الإلكتروني:</p>
-
-<strong id="dashboardEmail"></strong>
-
-</div>
-
-<div class="dashboard-section">
+<div class="dashboard-box">
 
 <h2>المشاريع</h2>
 
-<p>لا توجد مشاريع نشطة حاليًا.</p>
+<div class="inner-projects" id="innerProjects"></div>
+
+</div>
+
+<div class="dashboard-box">
+
+<h2>برنامج الإحالة</h2>
+
+<div class="referral-box">
+
+<strong>رابط الدعوة الخاص بك</strong>
+
+<div class="referral-link" id="referralLink"></div>
+
+<button class="copy-ref" onclick="copyReferral()">نسخ الرابط</button>
+
+<p id="copyMessage"></p>
+
+</div>
+
+</div>
+
+<div class="dashboard-box">
+
+<h2>معلومات الحساب</h2>
+
+<p>الاسم: <strong id="dashName"></strong></p>
+<p>البريد الإلكتروني: <strong id="dashEmail"></strong></p>
 
 </div>
 
@@ -737,49 +911,35 @@ font-size:23px;
 </div>
 
 <script>
-const authOverlay=document.getElementById("authOverlay");
-const registerForm=document.getElementById("registerForm");
-const loginForm=document.getElementById("loginForm");
-const dashboard=document.getElementById("dashboard");
+const siteProjects=[
+["المشروع الأول","$10","6%"],
+["المشروع الثاني","$15","7%"],
+["المشروع الثالث","$20","8%"],
+["المشروع الرابع","$50","9%"],
+["المشروع الخامس","$100","10%"],
+["المشروع السادس","$150","11%"],
+["المشروع السابع","$200","12%"],
+["المشروع الثامن","$300","13%"],
+["المشروع التاسع","$500","14%"],
+["المشروع العاشر","$1,000","15%"]
+];
 
-function openAuth(type){
-authOverlay.style.display="flex";
-
-if(type==="login"){
-registerForm.style.display="none";
-loginForm.style.display="block";
-}else{
-loginForm.style.display="none";
-registerForm.style.display="block";
-}
-}
-
-function showDashboard(email){
-
-const saved=localStorage.getItem("user_"+email);
-
-if(!saved)return;
-
-const user=JSON.parse(saved);
-
-document.getElementById("dashboardUser").textContent=user.name;
-document.getElementById("dashboardWelcome").textContent="مرحبًا بك "+user.name+" 👋";
-document.getElementById("dashboardEmail").textContent=user.email;
-
-document.querySelector("header").style.display="none";
-document.querySelector(".hero").style.display="none";
-document.querySelector("main").style.display="none";
-document.querySelector("footer").style.display="none";
-
-dashboard.style.display="block";
+function openLoginPage(){
+document.getElementById("registerPage").style.display="none";
+document.getElementById("loginPage").style.display="block";
 window.scrollTo(0,0);
 }
 
-function logoutUser(){
+function openRegisterPage(){
+document.getElementById("loginPage").style.display="none";
+document.getElementById("registerPage").style.display="block";
+window.scrollTo(0,0);
+}
 
-localStorage.removeItem("loggedUser");
-
-dashboard.style.display="none";
+function closeAuthPages(){
+document.getElementById("loginPage").style.display="none";
+document.getElementById("registerPage").style.display="none";
+document.getElementById("dashboardPage").style.display="none";
 
 document.querySelector("header").style.display="";
 document.querySelector(".hero").style.display="";
@@ -789,28 +949,95 @@ document.querySelector("footer").style.display="";
 window.scrollTo(0,0);
 }
 
-document.getElementById("login").onclick=()=>openAuth("login");
-document.getElementById("heroLogin").onclick=()=>openAuth("login");
+function showDashboard(email){
 
-document.getElementById("register").onclick=()=>openAuth("register");
-document.getElementById("heroReg").onclick=()=>openAuth("register");
+const raw=localStorage.getItem("user_"+email);
 
-document.getElementById("authClose").onclick=()=>{
-authOverlay.style.display="none";
-};
+if(!raw)return;
 
-document.getElementById("showLogin").onclick=()=>openAuth("login");
-document.getElementById("showRegister").onclick=()=>openAuth("register");
+const user=JSON.parse(raw);
 
-document.getElementById("createAccount").onclick=()=>{
+document.querySelector("header").style.display="none";
+document.querySelector(".hero").style.display="none";
+document.querySelector("main").style.display="none";
+document.querySelector("footer").style.display="none";
 
-const name=document.getElementById("regName").value.trim();
-const email=document.getElementById("regEmail").value.trim().toLowerCase();
-const password=document.getElementById("regPassword").value;
+document.getElementById("loginPage").style.display="none";
+document.getElementById("registerPage").style.display="none";
+document.getElementById("dashboardPage").style.display="block";
 
-const msg=document.getElementById("regMessage");
+document.getElementById("dashWelcome").textContent="مرحبًا بك "+user.name+" 👋";
+document.getElementById("dashName").textContent=user.name;
+document.getElementById("dashEmail").textContent=user.email;
 
-if(!name||!email||!password){
+const referral="https://nadircataloni.github.io/mywebsite/?ref="+encodeURIComponent(user.email);
+
+document.getElementById("referralLink").textContent=referral;
+
+document.getElementById("innerProjects").innerHTML=siteProjects.map(p=>`
+<div class="inner-project">
+<h3>${p[0]}</h3>
+<div class="inner-row">
+<span>الحد الأدنى</span>
+<span class="inner-value">${p[1]}</span>
+</div>
+<div class="inner-row">
+<span>العائد اليومي</span>
+<span class="inner-value">${p[2]}</span>
+</div>
+<div class="inner-row">
+<span>المدة</span>
+<span class="inner-value">30 يومًا</span>
+</div>
+</div>
+`).join("");
+
+window.scrollTo(0,0);
+}
+
+function logoutNew(){
+
+localStorage.removeItem("loggedUser");
+
+document.getElementById("dashboardPage").style.display="none";
+
+document.querySelector("header").style.display="";
+document.querySelector(".hero").style.display="";
+document.querySelector("main").style.display="";
+document.querySelector("footer").style.display="";
+
+window.scrollTo(0,0);
+}
+
+function backToWebsite(){
+closeAuthPages();
+}
+
+function copyReferral(){
+
+const text=document.getElementById("referralLink").textContent;
+
+navigator.clipboard.writeText(text).then(()=>{
+document.getElementById("copyMessage").textContent="تم نسخ رابط الدعوة ✓";
+document.getElementById("copyMessage").style.color="#087b55";
+});
+}
+
+document.getElementById("login").onclick=openLoginPage;
+document.getElementById("heroLogin").onclick=openLoginPage;
+
+document.getElementById("register").onclick=openRegisterPage;
+document.getElementById("heroReg").onclick=openRegisterPage;
+
+document.getElementById("registerNewBtn").onclick=()=>{
+
+const name=document.getElementById("regNameNew").value.trim();
+const email=document.getElementById("regEmailNew").value.trim().toLowerCase();
+const password=document.getElementById("regPasswordNew").value;
+
+const msg=document.getElementById("registerNewMsg");
+
+if(!name || !email || !password){
 msg.textContent="يرجى ملء جميع البيانات.";
 msg.style.color="#c33";
 return;
@@ -823,7 +1050,7 @@ return;
 }
 
 if(localStorage.getItem("user_"+email)){
-msg.textContent="هذا البريد مسجل بالفعل.";
+msg.textContent="هذا البريد الإلكتروني مسجل بالفعل.";
 msg.style.color="#c33";
 return;
 }
@@ -837,27 +1064,25 @@ password:password
 localStorage.setItem("user_"+email,JSON.stringify(user));
 localStorage.setItem("loggedUser",email);
 
-authOverlay.style.display="none";
-
 showDashboard(email);
 };
 
-document.getElementById("loginAccount").onclick=()=>{
+document.getElementById("loginNewBtn").onclick=()=>{
 
-const email=document.getElementById("loginEmail").value.trim().toLowerCase();
-const password=document.getElementById("loginPassword").value;
+const email=document.getElementById("loginEmailNew").value.trim().toLowerCase();
+const password=document.getElementById("loginPasswordNew").value;
 
-const msg=document.getElementById("loginMessage");
+const msg=document.getElementById("loginNewMsg");
 
-const saved=localStorage.getItem("user_"+email);
+const raw=localStorage.getItem("user_"+email);
 
-if(!saved){
+if(!raw){
 msg.textContent="الحساب غير موجود.";
 msg.style.color="#c33";
 return;
 }
 
-const user=JSON.parse(saved);
+const user=JSON.parse(raw);
 
 if(user.password!==password){
 msg.textContent="كلمة المرور غير صحيحة.";
@@ -867,21 +1092,14 @@ return;
 
 localStorage.setItem("loggedUser",email);
 
-authOverlay.style.display="none";
-
 showDashboard(email);
 };
 
-document.getElementById("logout").onclick=logoutUser;
+/* تسجيل الدخول التلقائي */
+const savedLogin=localStorage.getItem("loggedUser");
 
-document.getElementById("backHome").onclick=()=>{
-logoutUser();
-};
-
-const loggedUser=localStorage.getItem("loggedUser");
-
-if(loggedUser && localStorage.getItem("user_"+loggedUser)){
-showDashboard(loggedUser);
+if(savedLogin && localStorage.getItem("user_"+savedLogin)){
+showDashboard(savedLogin);
 }
 </script>
 
