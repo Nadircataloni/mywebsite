@@ -1401,14 +1401,14 @@ grid-template-columns:1fr;
 <span class="menu-text">الملف الشخصي</span>
 </button>
 
-<button class="menu-item" data-page="projects">
-<span class="menu-icon">📦</span>
-<span class="menu-text">المشاريع</span>
-</button>
-
 <button class="menu-item" data-page="referral">
 <span class="menu-icon">👥</span>
 <span class="menu-text">نظام الإحالة</span>
+</button>
+
+<button class="menu-item" data-page="withdraw">
+<span class="menu-icon">💸</span>
+<span class="menu-text">السحب</span>
 </button>
 
 <button class="menu-item" data-page="settings">
@@ -1456,6 +1456,14 @@ grid-template-columns:1fr;
 
 <div class="dashboard-box">
 
+<h2 id="profileProjectsTitle">المشاريع</h2>
+
+<div class="inner-projects" id="profileProjects"></div>
+
+</div>
+
+<div class="dashboard-box">
+
 <h2>معلومات الحساب</h2>
 
 <div class="profile-row">
@@ -1469,17 +1477,6 @@ grid-template-columns:1fr;
 </div>
 
 </div>
-
-</div>
-
-
-<!-- المشاريع -->
-
-<div class="dashboard-box" id="page-projects" style="display:none">
-
-<h2>المشاريع</h2>
-
-<div class="inner-projects" id="innerProjects"></div>
 
 </div>
 
@@ -1508,6 +1505,55 @@ grid-template-columns:1fr;
 
 
 <!-- المكافآت -->
+
+<!-- السحب -->
+
+<div class="dashboard-box" id="page-withdraw" style="display:none">
+
+<h2 id="withdrawTitle">السحب</h2>
+
+<p id="withdrawDescription">
+يمكنك طلب سحب رصيدك من هنا.
+</p>
+
+<div style="background:#f0f8f4;padding:20px;border-radius:14px;margin-top:20px">
+
+<label id="withdrawAmountLabel">مبلغ السحب</label>
+
+<input
+id="withdrawAmount"
+type="number"
+min="1"
+placeholder="0.00"
+style="width:100%;padding:13px;margin:10px 0 15px;border:1px solid #dfe5e2;border-radius:9px;font-size:15px"
+>
+
+<label id="withdrawMethodLabel">طريقة السحب</label>
+
+<select
+id="withdrawMethod"
+style="width:100%;padding:13px;margin:10px 0 15px;border:1px solid #dfe5e2;border-radius:9px;font-size:15px;background:#fff"
+>
+
+<option>PayPal</option>
+<option>USDT</option>
+<option>Bank Transfer</option>
+
+</select>
+
+<button
+id="withdrawButton"
+style="width:100%;background:#087b55;color:#fff;border:0;border-radius:9px;padding:13px;font-size:15px;cursor:pointer"
+>
+طلب السحب
+</button>
+
+<p id="withdrawMessage" style="margin-top:15px"></p>
+
+</div>
+
+</div>
+
 
 <!-- الإعدادات -->
 
@@ -1545,6 +1591,78 @@ style="width:100%;padding:12px;border:1px solid #dfe5e2;border-radius:10px;backg
 
 
 <script>
+
+
+
+/* ===== مشاريع الملف الشخصي ===== */
+
+function renderProfileProjects(lang){
+
+const data=SITE_LANGUAGES[lang] || SITE_LANGUAGES.ar;
+
+const container=document.getElementById("profileProjects");
+
+if(!container)return;
+
+container.innerHTML=dashboardProjects.map((p,i)=>`
+
+<div class="inner-project">
+
+<h3>${p[0]}</h3>
+
+<div class="inner-row">
+<span>${data.minimumShort}</span>
+<span class="inner-value">${p[1]}</span>
+</div>
+
+<div class="inner-row">
+<span>${data.dailyReturn}</span>
+<span class="inner-value">${p[2]}</span>
+</div>
+
+<div class="inner-row">
+<span>${data.duration}</span>
+<span class="inner-value">${data.days}</span>
+</div>
+
+<button
+class="deposit-project"
+data-project="${i}"
+style="
+width:100%;
+margin-top:15px;
+background:#087b55;
+color:#fff;
+border:0;
+border-radius:9px;
+padding:12px;
+cursor:pointer;
+font-size:14px;
+">
+${data.depositProject || "إيداع في المشروع"}
+</button>
+
+</div>
+
+`).join("");
+
+document.querySelectorAll(".deposit-project").forEach(button=>{
+
+button.onclick=()=>{
+
+const project=dashboardProjects[Number(button.dataset.project)];
+
+alert(
+(data.depositMessage || "سيتم فتح نظام الإيداع للمشروع: ")
++
+project[0]
+);
+
+};
+
+});
+
+}
 
 
 /* ===== ترجمة لوحة الحساب ===== */
@@ -1929,6 +2047,7 @@ if(languageSelect){
 languageSelect.value=savedLanguage;
 
 applyDashboardLanguage(savedLanguage);
+renderProfileProjects(savedLanguage);
 
 }
 
@@ -2100,7 +2219,15 @@ project:"المشروع",
 minimumShort:"الحد الأدنى",
 dailyReturn:"العائد اليومي",
 
-noProfits:"لا توجد أرباح مسجلة حاليًا."
+noProfits:"لا توجد أرباح مسجلة حاليًا.",
+depositProject:"إيداع في المشروع",
+depositMessage:"سيتم فتح نظام الإيداع للمشروع: ",
+withdraw:"السحب",
+withdrawDescription:"يمكنك طلب سحب رصيدك من هنا.",
+withdrawAmount:"مبلغ السحب",
+withdrawMethod:"طريقة السحب",
+withdrawRequest:"طلب السحب",
+withdrawSent:"تم إرسال طلب السحب للمراجعة."
 },
 
 en:{
@@ -2180,7 +2307,15 @@ project:"Project",
 minimumShort:"Minimum",
 dailyReturn:"Daily Return",
 
-noProfits:"No profits recorded yet."
+noProfits:"No profits recorded yet.",
+depositProject:"Deposit to Project",
+depositMessage:"The deposit system will open for: ",
+withdraw:"Withdraw",
+withdrawDescription:"You can request a withdrawal from here.",
+withdrawAmount:"Withdrawal amount",
+withdrawMethod:"Withdrawal method",
+withdrawRequest:"Request Withdrawal",
+withdrawSent:"Your withdrawal request has been submitted for review."
 },
 
 fr:{
@@ -2260,7 +2395,15 @@ project:"Projet",
 minimumShort:"Minimum",
 dailyReturn:"Rendement quotidien",
 
-noProfits:"Aucun bénéfice enregistré pour le moment."
+noProfits:"Aucun bénéfice enregistré pour le moment.",
+depositProject:"Déposer dans le projet",
+depositMessage:"Le système de dépôt sera ouvert pour : ",
+withdraw:"Retrait",
+withdrawDescription:"Vous pouvez demander un retrait depuis cette section.",
+withdrawAmount:"Montant du retrait",
+withdrawMethod:"Méthode de retrait",
+withdrawRequest:"Demander un retrait",
+withdrawSent:"Votre demande de retrait a été envoyée pour examen."
 }
 
 };
@@ -2431,7 +2574,8 @@ if(menuItems.length>=4){
 menuItems[0].textContent=t.profile;
 menuItems[1].textContent=t.projects;
 menuItems[2].textContent=t.referral;
-menuItems[3].textContent=t.settings;
+menuItems[3].textContent=t.withdraw || "Withdraw";
+if(menuItems[4])menuItems[4].textContent=t.settings;
 
 }
 
@@ -2440,6 +2584,9 @@ if(logout)logout.textContent=t.logout;
 
 
 /* الملف الشخصي */
+
+const profileProjectsTitle=document.getElementById("profileProjectsTitle");
+if(profileProjectsTitle)profileProjectsTitle.textContent=t.projects;
 
 const profileTitle=document.querySelector("#page-profile .dashboard-box h2");
 
@@ -2549,6 +2696,27 @@ try{
 renderProjects(lang);
 }catch(e){}
 }
+
+if(typeof renderProfileProjects==="function"){
+try{
+renderProfileProjects(lang);
+}catch(e){}
+}
+
+const withdrawTitle=document.getElementById("withdrawTitle");
+if(withdrawTitle)withdrawTitle.textContent=t.withdraw || "Withdraw";
+
+const withdrawDescription=document.getElementById("withdrawDescription");
+if(withdrawDescription)withdrawDescription.textContent=t.withdrawDescription || "";
+
+const withdrawAmountLabel=document.getElementById("withdrawAmountLabel");
+if(withdrawAmountLabel)withdrawAmountLabel.textContent=t.withdrawAmount || "";
+
+const withdrawMethodLabel=document.getElementById("withdrawMethodLabel");
+if(withdrawMethodLabel)withdrawMethodLabel.textContent=t.withdrawMethod || "";
+
+const withdrawButton=document.getElementById("withdrawButton");
+if(withdrawButton)withdrawButton.textContent=t.withdrawRequest || "";
 
 }
 
