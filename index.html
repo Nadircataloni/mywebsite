@@ -3207,6 +3207,36 @@ id="copyTron"
 إرسال العملة إلى شبكة غير صحيحة قد يؤدي إلى فقدان الأموال.
 </div>
 
+<div id="depositDoneNote"
+style="
+margin-top:15px;
+text-align:center;
+font-size:14px;
+line-height:1.8;
+color:#68756f;
+">
+بعد إتمام الإيداع، اضغط على «تم».
+<br>
+ستصل الإجابة خلال 5 دقائق.
+</div>
+
+<button
+id="depositDone"
+style="
+width:100%;
+margin-top:15px;
+background:#087b55;
+color:#fff;
+border:0;
+border-radius:10px;
+padding:13px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+">
+تم
+</button>
+
 </div>
 
 </div>
@@ -3364,6 +3394,12 @@ if(lang==="en"){
 if(title)title.textContent="Deposit Address";
 if(bsc)bsc.textContent="Copy Address";
 if(tron)tron.textContent="Copy Address";
+
+const done=document.getElementById("depositDone");
+const note=document.getElementById("depositDoneNote");
+
+if(done)done.textContent="Done";
+if(note)note.innerHTML="After completing the deposit, click “Done”.<br>Confirmation will arrive within 5 minutes.";
 if(warning)warning.textContent=
 "Make sure you select the correct network before sending funds. Sending funds through the wrong network may result in loss of funds.";
 
@@ -3374,6 +3410,12 @@ else if(lang==="fr"){
 if(title)title.textContent="Adresse de dépôt";
 if(bsc)bsc.textContent="Copier l'adresse";
 if(tron)tron.textContent="Copier l'adresse";
+
+const done=document.getElementById("depositDone");
+const note=document.getElementById("depositDoneNote");
+
+if(done)done.textContent="Terminé";
+if(note)note.innerHTML="Après avoir effectué le dépôt, cliquez sur « Terminé ».<br>La confirmation arrivera dans les 5 minutes.";
 if(warning)warning.textContent=
 "Assurez-vous de sélectionner le bon réseau avant d'envoyer des fonds. L'utilisation d'un mauvais réseau peut entraîner une perte des fonds.";
 
@@ -3384,6 +3426,12 @@ else{
 if(title)title.textContent="عنوان الإيداع";
 if(bsc)bsc.textContent="نسخ العنوان";
 if(tron)tron.textContent="نسخ العنوان";
+
+const done=document.getElementById("depositDone");
+const note=document.getElementById("depositDoneNote");
+
+if(done)done.textContent="تم";
+if(note)note.innerHTML="بعد إتمام الإيداع، اضغط على «تم».<br>ستصل الإجابة خلال 5 دقائق.";
 if(warning)warning.textContent=
 "تأكد من اختيار الشبكة الصحيحة قبل إرسال الأموال. إرسال الأموال عبر شبكة خاطئة قد يؤدي إلى فقدان الأموال.";
 
@@ -3401,6 +3449,24 @@ window.updateDepositLanguage(savedLang);
 
 })();
 
+</script>
+
+
+<script id="deposit-done-script">
+(function(){
+
+const done=document.getElementById("depositDone");
+const modal=document.getElementById("depositModal");
+
+if(!done || !modal)return;
+
+done.addEventListener("click",function(){
+
+modal.classList.remove("show");
+
+});
+
+})();
 </script>
 
 </body>
