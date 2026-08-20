@@ -1389,6 +1389,7 @@ grid-template-columns:1fr;
 
 <!-- القائمة الجانبية -->
 
+
 <div class="side-menu" id="sideMenu">
 
 <div class="menu-user">
@@ -1408,15 +1409,13 @@ grid-template-columns:1fr;
 
 <button class="menu-item" data-page="referral">
 <span class="menu-icon">👥</span>
-<span class="menu-text">نظام الإحالة</span>
+<span class="menu-text">برنامج الدعوات</span>
 </button>
 
 <button class="menu-item" data-page="withdraw">
 <span class="menu-icon">💸</span>
 <span class="menu-text">السحب</span>
 </button>
-
-
 
 <button class="menu-item" data-page="settings">
 <span class="menu-icon">⚙️</span>
@@ -1429,7 +1428,6 @@ grid-template-columns:1fr;
 </button>
 
 </div>
-
 
 <div class="dashboard-container" id="dashboardContent">
 
@@ -2760,6 +2758,256 @@ applyGlobalLanguage(e.target.value);
 const saved=localStorage.getItem("language") || "ar";
 
 applyGlobalLanguage(saved);
+
+})();
+
+</script>
+
+
+<script>
+
+/* =========================================================
+   إصلاح التنقل بين أقسام لوحة المستخدم
+   ========================================================= */
+
+(function(){
+
+function openDashboardPage(page){
+
+const pages=[
+"profile",
+"projects",
+"referral",
+"withdraw",
+"settings"
+];
+
+pages.forEach(function(name){
+
+const element=document.getElementById("page-"+name);
+
+if(element){
+element.style.display=(name===page) ? "block" : "none";
+}
+
+});
+
+
+document.querySelectorAll(".side-menu .menu-item[data-page]").forEach(function(button){
+
+button.classList.toggle(
+"active",
+button.getAttribute("data-page")===page
+);
+
+});
+
+
+const menu=document.getElementById("sideMenu");
+
+if(menu){
+menu.classList.remove("open");
+}
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/*
+نستخدم مرحلة capture حتى نمنع أكواد التنقل القديمة
+من تغيير الصفحة إلى قسم خاطئ.
+*/
+
+document.addEventListener("click",function(event){
+
+const button=event.target.closest(
+".side-menu .menu-item[data-page]"
+);
+
+if(!button)return;
+
+const page=button.getAttribute("data-page");
+
+if(![
+"profile",
+"projects",
+"referral",
+"withdraw",
+"settings"
+].includes(page))return;
+
+event.preventDefault();
+event.stopPropagation();
+event.stopImmediatePropagation();
+
+openDashboardPage(page);
+
+},true);
+
+
+/* =========================================================
+   عرض المشاريع
+   ========================================================= */
+
+function renderCorrectProjects(){
+
+const container=document.getElementById("innerProjects");
+
+if(!container)return;
+
+const projects=[
+["المشروع الأول","$10","6%"],
+["المشروع الثاني","$15","7%"],
+["المشروع الثالث","$20","8%"],
+["المشروع الرابع","$50","9%"],
+["المشروع الخامس","$100","10%"],
+["المشروع السادس","$150","11%"],
+["المشروع السابع","$200","12%"],
+["المشروع الثامن","$300","13%"],
+["المشروع التاسع","$500","14%"],
+["المشروع العاشر","$1,000","15%"]
+];
+
+container.innerHTML=projects.map(function(p,index){
+
+return `
+<div class="inner-project">
+
+<h3>${p[0]}</h3>
+
+<div class="inner-row">
+<span>الحد الأدنى للإيداع</span>
+<span class="inner-value">${p[1]}</span>
+</div>
+
+<div class="inner-row">
+<span>العائد اليومي</span>
+<span class="inner-value">${p[2]}</span>
+</div>
+
+<div class="inner-row">
+<span>مدة المشروع</span>
+<span class="inner-value">30 يومًا</span>
+</div>
+
+<button
+class="deposit-project"
+data-project="${index}"
+style="
+width:100%;
+margin-top:15px;
+background:#087b55;
+color:#fff;
+border:0;
+border-radius:9px;
+padding:12px;
+cursor:pointer;
+font-size:14px;
+">
+إيداع في المشروع
+</button>
+
+</div>
+`;
+
+}).join("");
+
+}
+
+
+/* =========================================================
+   تشغيل المشاريع
+   ========================================================= */
+
+renderCorrectProjects();
+
+
+/* =========================================================
+   زر الإيداع
+   ========================================================= */
+
+document.addEventListener("click",function(event){
+
+const button=event.target.closest(".deposit-project");
+
+if(!button)return;
+
+const projects=[
+"المشروع الأول",
+"المشروع الثاني",
+"المشروع الثالث",
+"المشروع الرابع",
+"المشروع الخامس",
+"المشروع السادس",
+"المشروع السابع",
+"المشروع الثامن",
+"المشروع التاسع",
+"المشروع العاشر"
+];
+
+const index=Number(button.dataset.project);
+
+alert("إيداع في "+projects[index]);
+
+});
+
+
+/* =========================================================
+   زر نسخ رابط الإحالة
+   ========================================================= */
+
+document.addEventListener("click",function(event){
+
+if(event.target.id!=="copyReferral")return;
+
+const link=document.getElementById("referralLink");
+
+if(!link)return;
+
+navigator.clipboard.writeText(link.textContent).then(function(){
+
+const message=document.getElementById("copyMessage");
+
+if(message){
+message.textContent="تم نسخ رابط الدعوة ✓";
+message.style.color="#087b55";
+}
+
+});
+
+});
+
+
+/* =========================================================
+   زر السحب
+   ========================================================= */
+
+document.addEventListener("click",function(event){
+
+if(event.target.id!=="withdrawButton")return;
+
+const amount=document.getElementById("withdrawAmount").value;
+
+const message=document.getElementById("withdrawMessage");
+
+if(!amount || Number(amount)<=0){
+
+message.textContent="يرجى إدخال مبلغ صحيح.";
+message.style.color="#b33";
+
+return;
+
+}
+
+message.textContent="تم إرسال طلب السحب للمراجعة.";
+message.style.color="#087b55";
+
+});
+
 
 })();
 
