@@ -350,41 +350,101 @@ document.getElementById("language")
 </script>
 
 
-<a href="https://t.me/Hacker_Shinichi" class="telegram-float" target="_blank" rel="noopener noreferrer" aria-label="Telegram">✈️</a>
+
+
+
+<div class="support-float">
+    <div class="support-text" id="supportText">إذا كنت تحتاج إلى مساعدة، اتصل بالدعم</div>
+    <a href="https://t.me/Hacker_Shinichi"
+       class="telegram-float"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Support">🎧</a>
+</div>
 
 <style>
-.telegram-float{
-position:fixed;
-bottom:18px;
-right:18px;
-width:42px;
-height:42px;
-border-radius:50%;
-background:#229ED9;
-color:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-text-decoration:none;
-font-size:20px;
-box-shadow:0 4px 12px rgba(0,0,0,.18);
-z-index:9999;
-transition:transform .2s,opacity .2s
+.support-float{
+    position:fixed;
+    bottom:18px;
+    right:18px;
+    z-index:9999;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
 }
+
+.support-text{
+    background:#172033;
+    color:#fff;
+    padding:6px 10px;
+    border-radius:8px;
+    font-size:11px;
+    white-space:nowrap;
+    box-shadow:0 3px 10px rgba(0,0,0,.15);
+}
+
+.telegram-float{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#229ED9;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size:21px;
+    box-shadow:0 4px 12px rgba(0,0,0,.18);
+    transition:transform .2s,opacity .2s;
+}
+
 .telegram-float:hover{
-transform:scale(1.08);
-opacity:.92
+    transform:scale(1.08);
+    opacity:.92;
 }
+
 @media(max-width:700px){
-.telegram-float{
-width:38px;
-height:38px;
-right:12px;
-bottom:12px;
-font-size:18px
-}
+    .support-float{
+        right:12px;
+        bottom:12px;
+    }
+
+    .telegram-float{
+        width:38px;
+        height:38px;
+        font-size:19px;
+    }
+
+    .support-text{
+        font-size:10px;
+        padding:5px 8px;
+    }
 }
 </style>
 
+<script>
+function updateSupportText(lang){
+    const support = document.getElementById("supportText");
+    if(!support) return;
+
+    const texts = {
+        ar:"إذا كنت تحتاج إلى مساعدة، اتصل بالدعم",
+        en:"If you need help, contact support",
+        fr:"Si vous avez besoin d'aide, contactez le support"
+    };
+
+    support.textContent = texts[lang] || texts.ar;
+}
+
+const oldChangeLanguage = changeLanguage;
+
+changeLanguage = function(lang){
+    oldChangeLanguage(lang);
+    updateSupportText(lang);
+};
+
+updateSupportText(localStorage.getItem("language") || "ar");
+</script>
 </body>
 </html>
