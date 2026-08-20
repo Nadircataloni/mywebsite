@@ -1,108 +1,219 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ربح تراكمي</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            color: #222;
-        }
-
-        header {
-            background: #111;
-            color: white;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h2 {
-            margin: 0;
-        }
-
-        select {
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: none;
-            font-size: 15px;
-        }
-
-        main {
-            max-width: 900px;
-            margin: 80px auto;
-            padding: 20px;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #777;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ربح تراكمي</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f7fb;color:#172033}
+header{background:#fff;border-bottom:1px solid #e5e7eb;padding:15px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px;position:sticky;top:0;z-index:10}
+.logo{font-size:24px;font-weight:bold;color:#176b4d}
+nav{display:flex;align-items:center;gap:10px}
+button,select{border:0;border-radius:8px;padding:10px 15px;font-size:15px;cursor:pointer}
+.login{background:transparent;color:#176b4d}.register{background:#176b4d;color:#fff}
+select{background:#f0f2f5;color:#222}
+.hero{background:linear-gradient(135deg,#176b4d,#22966c);color:#fff;text-align:center;padding:80px 20px}
+.hero h1{font-size:42px;margin:0 0 20px}.hero p{font-size:20px;max-width:650px;margin:auto;line-height:1.8}
+.hero-buttons{margin-top:30px}.hero-buttons button{margin:5px;padding:13px 25px}
+.hero-register{background:#fff;color:#176b4d}.hero-login{background:transparent;color:#fff;border:1px solid #fff}
+section{max-width:1100px;margin:50px auto;padding:0 20px}
+.section-title{text-align:center;margin-bottom:30px}.section-title h2{font-size:30px;margin-bottom:10px}.section-title p{color:#687386}
+.projects,.tasks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.card,.task,.referral{background:#fff;border-radius:14px;padding:25px;box-shadow:0 5px 20px rgba(0,0,0,.06)}
+.card h3{margin-top:0}.info{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eee}.value{font-weight:bold}
+.project-button{width:100%;margin-top:20px;background:#176b4d;color:#fff}
+.reward{color:#176b4d;font-size:20px;font-weight:bold}
+.referral{text-align:center}.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:25px}
+.level{background:#f1f8f5;padding:20px;border-radius:12px}.percentage{font-size:28px;font-weight:bold;color:#176b4d}
+footer{background:#172033;color:#fff;text-align:center;padding:35px 20px;margin-top:60px}
+@media(max-width:700px){header{flex-wrap:wrap}nav{width:100%;justify-content:center}.hero h1{font-size:32px}.hero p{font-size:17px}.levels{grid-template-columns:1fr}}
+</style>
 </head>
-
 <body>
 
 <header>
-    <h2>ربح تراكمي</h2>
-
-    <select id="language">
-        <option value="ar">العربية</option>
-        <option value="en">English</option>
-        <option value="fr">Français</option>
-    </select>
+<div class="logo">ربح تراكمي</div>
+<nav>
+<button class="login" id="login">تسجيل الدخول</button>
+<button class="register" id="register">إنشاء حساب</button>
+<select id="language">
+<option value="ar">العربية</option>
+<option value="en">English</option>
+<option value="fr">Français</option>
+</select>
+</nav>
 </header>
 
-<main>
-    <h1 id="welcome">مرحبًا بكم في موقع ربح تراكمي</h1>
-</main>
+<section class="hero">
+<h1 id="welcome">مرحبًا بكم في موقع ربح تراكمي</h1>
+<p id="description">منصة رقمية لإدارة الحساب والمهام والمكافآت.</p>
+<div class="hero-buttons">
+<button class="hero-register" id="heroRegister">إنشاء حساب</button>
+<button class="hero-login" id="heroLogin">تسجيل الدخول</button>
+</div>
+</section>
+
+<section>
+<div class="section-title">
+<h2 id="projectsTitle">المشاريع</h2>
+<p id="projectsDesc">استكشف المشاريع المتاحة على المنصة</p>
+</div>
+
+<div class="projects">
+
+<div class="card">
+<h3 id="p1">المشروع الأول</h3>
+<div class="info"><span id="min1">الحد الأدنى</span><span class="value">2,000 دج</span></div>
+<div class="info"><span id="duration1">مدة المشروع</span><span class="value">180 يوم</span></div>
+<button class="project-button" id="details1">التفاصيل</button>
+</div>
+
+<div class="card">
+<h3 id="p2">المشروع الثاني</h3>
+<div class="info"><span id="min2">الحد الأدنى</span><span class="value">9,000 دج</span></div>
+<div class="info"><span id="duration2">مدة المشروع</span><span class="value">180 يوم</span></div>
+<button class="project-button" id="details2">التفاصيل</button>
+</div>
+
+<div class="card">
+<h3 id="p3">المشروع الثالث</h3>
+<div class="info"><span id="min3">الحد الأدنى</span><span class="value">37,000 دج</span></div>
+<div class="info"><span id="duration3">مدة المشروع</span><span class="value">180 يوم</span></div>
+<button class="project-button" id="details3">التفاصيل</button>
+</div>
+
+</div>
+</section>
+
+<section>
+<div class="section-title">
+<h2 id="tasksTitle">مركز المهام</h2>
+<p id="tasksDesc">أكمل المهام واحصل على نقاط ومكافآت</p>
+</div>
+
+<div class="tasks">
+
+<div class="task">
+<h3 id="task1">إنشاء حساب</h3>
+<p id="task1d">قم بإنشاء حساب جديد على المنصة.</p>
+<div class="reward">+100 XP</div>
+</div>
+
+<div class="task">
+<h3 id="task2">تسجيل الدخول يوميًا</h3>
+<p id="task2d">سجل الدخول يوميًا للحصول على نقاط.</p>
+<div class="reward">+2 XP</div>
+</div>
+
+<div class="task">
+<h3 id="task3">دعوة صديق</h3>
+<p id="task3d">شارك رابط الدعوة الخاص بك.</p>
+<div class="reward">+50 XP</div>
+</div>
+
+</div>
+</section>
+
+<section>
+<div class="referral">
+<h2 id="refTitle">برنامج الدعوات</h2>
+<p id="refDesc">احصل على مكافآت إضافية من خلال برنامج الدعوات.</p>
+
+<div class="levels">
+<div class="level"><div id="level1">المستوى الأول</div><div class="percentage">10%</div></div>
+<div class="level"><div id="level2">المستوى الثاني</div><div class="percentage">3%</div></div>
+<div class="level"><div id="level3">المستوى الثالث</div><div class="percentage">1%</div></div>
+</div>
+</div>
+</section>
 
 <footer>
-    © 2026 ربح تراكمي
+<div id="copyright">© 2026 ربح تراكمي</div>
+<p id="terms">شروط الخدمة · سياسة الخصوصية</p>
 </footer>
 
 <script>
-const translations = {
-    ar: {
-        welcome: "مرحبًا بكم في موقع ربح تراكمي",
-        direction: "rtl"
-    },
-    en: {
-        welcome: "Welcome to the cumulative profit site",
-        direction: "ltr"
-    },
-    fr: {
-        welcome: "Bienvenue sur le site des profits cumulatifs",
-        direction: "ltr"
-    }
-};
+const T={
+ar:{
+welcome:"مرحبًا بكم في موقع ربح تراكمي",
+description:"منصة رقمية لإدارة الحساب والمهام والمكافآت.",
+login:"تسجيل الدخول",register:"إنشاء حساب",
+projectsTitle:"المشاريع",projectsDesc:"استكشف المشاريع المتاحة على المنصة",
+p1:"المشروع الأول",p2:"المشروع الثاني",p3:"المشروع الثالث",
+min:"الحد الأدنى",duration:"مدة المشروع",details:"التفاصيل",
+tasksTitle:"مركز المهام",tasksDesc:"أكمل المهام واحصل على نقاط ومكافآت",
+task1:"إنشاء حساب",task1d:"قم بإنشاء حساب جديد على المنصة.",
+task2:"تسجيل الدخول يوميًا",task2d:"سجل الدخول يوميًا للحصول على نقاط.",
+task3:"دعوة صديق",task3d:"شارك رابط الدعوة الخاص بك.",
+refTitle:"برنامج الدعوات",refDesc:"احصل على مكافآت إضافية من خلال برنامج الدعوات.",
+l1:"المستوى الأول",l2:"المستوى الثاني",l3:"المستوى الثالث",
+terms:"شروط الخدمة · سياسة الخصوصية",dir:"rtl"
+},
+en:{
+welcome:"Welcome to the cumulative profit site",
+description:"A digital platform for managing your account, tasks and rewards.",
+login:"Login",register:"Register",
+projectsTitle:"Projects",projectsDesc:"Explore the projects available on the platform",
+p1:"Project One",p2:"Project Two",p3:"Project Three",
+min:"Minimum",duration:"Project duration",details:"Details",
+tasksTitle:"Task Center",tasksDesc:"Complete tasks and earn points and rewards",
+task1:"Create an account",task1d:"Create a new account on the platform.",
+task2:"Daily login",task2d:"Log in daily to earn points.",
+task3:"Invite a friend",task3d:"Share your invitation link.",
+refTitle:"Referral Program",refDesc:"Earn additional rewards through the referral program.",
+l1:"Level One",l2:"Level Two",l3:"Level Three",
+terms:"Terms of Service · Privacy Policy",dir:"ltr"
+},
+fr:{
+welcome:"Bienvenue sur le site des profits cumulatifs",
+description:"Une plateforme numérique pour gérer votre compte, vos tâches et vos récompenses.",
+login:"Connexion",register:"Créer un compte",
+projectsTitle:"Projets",projectsDesc:"Découvrez les projets disponibles sur la plateforme",
+p1:"Projet Un",p2:"Projet Deux",p3:"Projet Trois",
+min:"Minimum",duration:"Durée du projet",details:"Détails",
+tasksTitle:"Centre des tâches",tasksDesc:"Accomplissez des tâches et gagnez des points et des récompenses",
+task1:"Créer un compte",task1d:"Créez un nouveau compte sur la plateforme.",
+task2:"Connexion quotidienne",task2d:"Connectez-vous chaque jour pour gagner des points.",
+task3:"Inviter un ami",task3d:"Partagez votre lien d'invitation.",
+refTitle:"Programme de parrainage",refDesc:"Gagnez des récompenses supplémentaires grâce au programme de parrainage.",
+l1:"Niveau Un",l2:"Niveau Deux",l3:"Niveau Trois",
+terms:"Conditions d'utilisation · Politique de confidentialité",dir:"ltr"
+}};
 
-document.getElementById("language").addEventListener("change", function () {
-    const language = this.value;
+function setText(id,text){document.getElementById(id).textContent=text}
 
-    document.getElementById("welcome").textContent =
-        translations[language].welcome;
+function changeLanguage(lang){
+const t=T[lang];
+setText("welcome",t.welcome);
+setText("description",t.description);
+setText("login",t.login);
+setText("register",t.register);
+setText("heroRegister",t.register);
+setText("heroLogin",t.login);
+setText("projectsTitle",t.projectsTitle);
+setText("projectsDesc",t.projectsDesc);
+setText("p1",t.p1);setText("p2",t.p2);setText("p3",t.p3);
+setText("min1",t.min);setText("min2",t.min);setText("min3",t.min);
+setText("duration1",t.duration);setText("duration2",t.duration);setText("duration3",t.duration);
+setText("details1",t.details);setText("details2",t.details);setText("details3",t.details);
+setText("tasksTitle",t.tasksTitle);setText("tasksDesc",t.tasksDesc);
+setText("task1",t.task1);setText("task1d",t.task1d);
+setText("task2",t.task2);setText("task2d",t.task2d);
+setText("task3",t.task3);setText("task3d",t.task3d);
+setText("refTitle",t.refTitle);setText("refDesc",t.refDesc);
+setText("level1",t.l1);setText("level2",t.l2);setText("level3",t.l3);
+setText("terms",t.terms);
+document.documentElement.lang=lang;
+document.documentElement.dir=t.dir;
+localStorage.setItem("language",lang);
+}
 
-    document.documentElement.lang = language;
-    document.documentElement.dir =
-        translations[language].direction;
-});
+document.getElementById("language").addEventListener("change",e=>changeLanguage(e.target.value));
+
+const saved=localStorage.getItem("language")||"ar";
+document.getElementById("language").value=saved;
+changeLanguage(saved);
 </script>
 
 </body>
