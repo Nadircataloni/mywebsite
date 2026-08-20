@@ -1516,8 +1516,20 @@ grid-template-columns:1fr;
 <h2>الإعدادات</h2>
 
 <div class="settings-option">
-<strong>اللغة</strong>
-<p>يتم استخدام لغة الموقع الحالية.</p>
+
+<strong id="settingsLanguageTitle">اللغة</strong>
+
+<p id="settingsLanguageDesc">اختر لغة الموقع.</p>
+
+<select id="dashboardLanguage"
+style="width:100%;padding:12px;border:1px solid #dfe5e2;border-radius:10px;background:#fff;font-size:15px;cursor:pointer">
+
+<option value="ar">العربية</option>
+<option value="en">English</option>
+<option value="fr">Français</option>
+
+</select>
+
 </div>
 
 <div class="settings-option">
@@ -1533,6 +1545,233 @@ grid-template-columns:1fr;
 
 
 <script>
+
+
+/* ===== ترجمة لوحة الحساب ===== */
+
+const dashboardTranslations={
+
+ar:{
+profile:"الملف الشخصي",
+projects:"المشاريع",
+referral:"نظام الإحالة",
+settings:"الإعدادات",
+logout:"تسجيل الخروج",
+welcome:"مرحبًا بك",
+profileInfo:"معلومات الحساب",
+name:"الاسم",
+email:"البريد الإلكتروني",
+balance:"الرصيد",
+profits:"الأرباح",
+activeProjects:"المشاريع النشطة",
+referralTitle:"نظام الإحالة",
+referralLink:"رابط الدعوة الخاص بك",
+copy:"نسخ الرابط",
+copied:"تم نسخ رابط الدعوة ✓",
+rewards:"مستويات المكافآت",
+level1:"المستوى الأول",
+level2:"المستوى الثاني",
+level3:"المستوى الثالث",
+language:"اللغة",
+languageDesc:"اختر لغة الموقع.",
+settingsTitle:"الإعدادات",
+projectsTitle:"المشاريع",
+minimum:"الحد الأدنى",
+daily:"العائد اليومي",
+duration:"المدة",
+days:"30 يومًا",
+home:"الرئيسية",
+logoutConfirm:"تم تسجيل الخروج"
+},
+
+en:{
+profile:"Profile",
+projects:"Projects",
+referral:"Referral Program",
+settings:"Settings",
+logout:"Logout",
+welcome:"Welcome",
+profileInfo:"Account Information",
+name:"Name",
+email:"Email",
+balance:"Balance",
+profits:"Profits",
+activeProjects:"Active Projects",
+referralTitle:"Referral Program",
+referralLink:"Your referral link",
+copy:"Copy link",
+copied:"Referral link copied ✓",
+rewards:"Reward Levels",
+level1:"Level One",
+level2:"Level Two",
+level3:"Level Three",
+language:"Language",
+languageDesc:"Choose the website language.",
+settingsTitle:"Settings",
+projectsTitle:"Projects",
+minimum:"Minimum",
+daily:"Daily return",
+duration:"Duration",
+days:"30 days",
+home:"Home",
+logoutConfirm:"Logged out"
+},
+
+fr:{
+profile:"Profil",
+projects:"Projets",
+referral:"Programme de parrainage",
+settings:"Paramètres",
+logout:"Déconnexion",
+welcome:"Bienvenue",
+profileInfo:"Informations du compte",
+name:"Nom",
+email:"E-mail",
+balance:"Solde",
+profits:"Bénéfices",
+activeProjects:"Projets actifs",
+referralTitle:"Programme de parrainage",
+referralLink:"Votre lien de parrainage",
+copy:"Copier le lien",
+copied:"Lien de parrainage copié ✓",
+rewards:"Niveaux de récompenses",
+level1:"Niveau Un",
+level2:"Niveau Deux",
+level3:"Niveau Trois",
+language:"Langue",
+languageDesc:"Choisissez la langue du site.",
+settingsTitle:"Paramètres",
+projectsTitle:"Projets",
+minimum:"Minimum",
+daily:"Rendement quotidien",
+duration:"Durée",
+days:"30 jours",
+home:"Accueil",
+logoutConfirm:"Déconnexion effectuée"
+}
+
+};
+
+function applyDashboardLanguage(lang){
+
+const t=dashboardTranslations[lang] || dashboardTranslations.ar;
+
+document.documentElement.lang=lang;
+document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+
+localStorage.setItem("language",lang);
+
+const setText=(id,value)=>{
+const el=document.getElementById(id);
+if(el)el.textContent=value;
+};
+
+/* القائمة */
+
+const menuTexts=document.querySelectorAll(".menu-text");
+
+if(menuTexts.length>=4){
+menuTexts[0].textContent=t.profile;
+menuTexts[1].textContent=t.projects;
+menuTexts[2].textContent=t.referral;
+menuTexts[3].textContent=t.settings;
+}
+
+setText("settingsLanguageTitle",t.language);
+setText("settingsLanguageDesc",t.languageDesc);
+
+/* الملف الشخصي */
+
+const profileBox=document.getElementById("page-profile");
+
+if(profileBox){
+
+const title=profileBox.querySelector(".dashboard-box h2");
+
+if(title)title.textContent=t.profileInfo;
+
+const labels=profileBox.querySelectorAll(".profile-label");
+
+if(labels[0])labels[0].textContent=t.name;
+if(labels[1])labels[1].textContent=t.email;
+
+const stats=profileBox.querySelectorAll(".stat-title");
+
+if(stats[0])stats[0].textContent=t.balance;
+if(stats[1])stats[1].textContent=t.profits;
+if(stats[2])stats[2].textContent=t.activeProjects;
+}
+
+/* المشاريع */
+
+const projectsTitle=document.querySelector("#page-projects h2");
+
+if(projectsTitle)projectsTitle.textContent=t.projectsTitle;
+
+document.querySelectorAll(".inner-project").forEach(card=>{
+
+const rows=card.querySelectorAll(".inner-row");
+
+if(rows[0])rows[0].querySelector("span").textContent=t.minimum;
+if(rows[1])rows[1].querySelector("span").textContent=t.daily;
+if(rows[2])rows[2].querySelector("span").textContent=t.duration;
+
+if(rows[2])rows[2].querySelector(".inner-value").textContent=t.days;
+
+});
+
+/* الإحالة */
+
+const referralTitle=document.querySelector("#page-referral h2");
+
+if(referralTitle)referralTitle.textContent=t.referralTitle;
+
+const referralStrong=document.querySelector("#page-referral .referral-box strong");
+
+if(referralStrong)referralStrong.textContent=t.referralLink;
+
+const copyBtn=document.getElementById("copyReferral");
+
+if(copyBtn)copyBtn.textContent=t.copy;
+
+/* المكافآت */
+
+const rewardTitle=document.querySelector("#page-referral h3");
+
+if(rewardTitle)rewardTitle.textContent=t.rewards;
+
+const rewards=document.querySelectorAll(".reward-card span");
+
+if(rewards[0])rewards[0].textContent=t.level1;
+if(rewards[1])rewards[1].textContent=t.level2;
+if(rewards[2])rewards[2].textContent=t.level3;
+
+/* الإعدادات */
+
+const settingsTitle=document.querySelector("#page-settings h2");
+
+if(settingsTitle)settingsTitle.textContent=t.settingsTitle;
+
+/* تسجيل الخروج */
+
+const logoutText=document.querySelector("#menuLogout .menu-text");
+
+if(logoutText)logoutText.textContent=t.logout;
+
+}
+
+/* تغيير اللغة من الإعدادات */
+
+document.addEventListener("change",function(e){
+
+if(e.target.id==="dashboardLanguage"){
+
+applyDashboardLanguage(e.target.value);
+
+}
+
+});
+
 
 /* ===== بيانات المشاريع ===== */
 
@@ -1680,6 +1919,18 @@ dashboardProjects.map(p=>`
 `).join("");
 
 window.scrollTo(0,0);
+
+const savedLanguage=localStorage.getItem("language") || "ar";
+
+const languageSelect=document.getElementById("dashboardLanguage");
+
+if(languageSelect){
+
+languageSelect.value=savedLanguage;
+
+applyDashboardLanguage(savedLanguage);
+
+}
 
 }
 
