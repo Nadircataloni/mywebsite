@@ -1968,5 +1968,622 @@ showDashboard(automaticLogin);
 
 </script>
 
+
+<style>
+/* ===== GLOBAL LANGUAGE SYSTEM ===== */
+
+html[dir="rtl"]{
+direction:rtl;
+}
+
+html[dir="ltr"]{
+direction:ltr;
+}
+
+.language-global{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+#globalLanguage{
+padding:9px 12px;
+border:0;
+border-radius:9px;
+background:#f1f3f4;
+font-size:14px;
+cursor:pointer;
+}
+
+.dashboard-top{
+direction:inherit;
+}
+
+.dashboard-container{
+direction:inherit;
+}
+
+.side-menu{
+direction:inherit;
+}
+
+.auth-page{
+direction:inherit;
+}
+
+.auth-card{
+direction:inherit;
+}
+</style>
+
+<script>
+/* =====================================================
+   نظام اللغة الموحد للموقع بالكامل
+   ===================================================== */
+
+const SITE_LANGUAGES={
+
+ar:{
+dir:"rtl",
+
+siteName:"ربح تراكمي",
+login:"تسجيل الدخول",
+register:"إنشاء حساب",
+
+welcome:"مرحبًا بكم في موقع ربح تراكمي",
+description:"منصة رقمية لإدارة المشاريع والحسابات.",
+
+createAccount:"إنشاء حساب",
+loginNow:"تسجيل الدخول",
+
+projects:"المشاريع",
+chooseProject:"اختر المشروع المناسب لك",
+
+minimum:"الحد الأدنى للإيداع",
+daily:"العائد اليومي",
+duration:"مدة المشروع",
+days:"30 يومًا",
+details:"عرض التفاصيل",
+
+referral:"برنامج الدعوات",
+referralDescription:"شارك رابط الدعوة الخاص بك وفق شروط البرنامج.",
+rewards:"مستويات المكافآت",
+
+level1:"المستوى الأول",
+level2:"المستوى الثاني",
+level3:"المستوى الثالث",
+
+why:"لماذا ربح تراكمي؟",
+whyDescription:"واجهة بسيطة وسهلة الاستخدام",
+
+secure:"حساب آمن",
+secureDescription:"إدارة معلومات الحساب من مكان واحد.",
+
+management:"إدارة واضحة",
+managementDescription:"عرض تفاصيل المشاريع بطريقة منظمة.",
+
+threeLanguages:"ثلاث لغات",
+threeLanguagesDescription:"العربية والإنجليزية والفرنسية.",
+
+terms:"شروط الخدمة · سياسة الخصوصية",
+
+loginTitle:"تسجيل الدخول",
+loginDescription:"ادخل إلى حسابك للمتابعة",
+email:"البريد الإلكتروني",
+password:"كلمة المرور",
+
+noAccount:"ليس لديك حساب؟",
+hasAccount:"لديك حساب بالفعل؟",
+
+name:"الاسم",
+
+dashboardWelcome:"مرحبًا بك",
+profile:"الملف الشخصي",
+accountInformation:"معلومات الحساب",
+
+balance:"الرصيد",
+profits:"الأرباح",
+activeProjects:"المشاريع النشطة",
+
+referralProgram:"نظام الإحالة",
+yourReferral:"رابط الدعوة الخاص بك",
+copy:"نسخ الرابط",
+copied:"تم نسخ رابط الدعوة ✓",
+
+settings:"الإعدادات",
+language:"اللغة",
+chooseLanguage:"اختر لغة الموقع.",
+
+logout:"تسجيل الخروج",
+
+project:"المشروع",
+minimumShort:"الحد الأدنى",
+dailyReturn:"العائد اليومي",
+
+noProfits:"لا توجد أرباح مسجلة حاليًا."
+},
+
+en:{
+dir:"ltr",
+
+siteName:"Cumulative Profit",
+login:"Login",
+register:"Register",
+
+welcome:"Welcome to Cumulative Profit",
+description:"A digital platform for managing projects and accounts.",
+
+createAccount:"Create Account",
+loginNow:"Login",
+
+projects:"Projects",
+chooseProject:"Choose the project that suits you",
+
+minimum:"Minimum Deposit",
+daily:"Daily Return",
+duration:"Project Duration",
+days:"30 days",
+details:"View Details",
+
+referral:"Referral Program",
+referralDescription:"Share your referral link according to the program terms.",
+rewards:"Reward Levels",
+
+level1:"Level One",
+level2:"Level Two",
+level3:"Level Three",
+
+why:"Why Cumulative Profit?",
+whyDescription:"A simple and easy-to-use interface",
+
+secure:"Secure Account",
+secureDescription:"Manage your account information in one place.",
+
+management:"Clear Management",
+managementDescription:"View project details in an organized way.",
+
+threeLanguages:"Three Languages",
+threeLanguagesDescription:"Arabic, English and French.",
+
+terms:"Terms of Service · Privacy Policy",
+
+loginTitle:"Login",
+loginDescription:"Sign in to continue",
+email:"Email",
+password:"Password",
+
+noAccount:"Don't have an account?",
+hasAccount:"Already have an account?",
+
+name:"Name",
+
+dashboardWelcome:"Welcome",
+profile:"Profile",
+accountInformation:"Account Information",
+
+balance:"Balance",
+profits:"Profits",
+activeProjects:"Active Projects",
+
+referralProgram:"Referral Program",
+yourReferral:"Your referral link",
+copy:"Copy Link",
+copied:"Referral link copied ✓",
+
+settings:"Settings",
+language:"Language",
+chooseLanguage:"Choose the website language.",
+
+logout:"Logout",
+
+project:"Project",
+minimumShort:"Minimum",
+dailyReturn:"Daily Return",
+
+noProfits:"No profits recorded yet."
+},
+
+fr:{
+dir:"ltr",
+
+siteName:"Profits Cumulatifs",
+login:"Connexion",
+register:"Créer un compte",
+
+welcome:"Bienvenue sur Profits Cumulatifs",
+description:"Une plateforme numérique pour gérer les projets et les comptes.",
+
+createAccount:"Créer un compte",
+loginNow:"Connexion",
+
+projects:"Projets",
+chooseProject:"Choisissez le projet qui vous convient",
+
+minimum:"Dépôt minimum",
+daily:"Rendement quotidien",
+duration:"Durée du projet",
+days:"30 jours",
+details:"Voir les détails",
+
+referral:"Programme de parrainage",
+referralDescription:"Partagez votre lien de parrainage selon les conditions du programme.",
+rewards:"Niveaux de récompenses",
+
+level1:"Niveau Un",
+level2:"Niveau Deux",
+level3:"Niveau Trois",
+
+why:"Pourquoi Profits Cumulatifs ?",
+whyDescription:"Une interface simple et facile à utiliser",
+
+secure:"Compte sécurisé",
+secureDescription:"Gérez les informations de votre compte en un seul endroit.",
+
+management:"Gestion claire",
+managementDescription:"Consultez les détails des projets de manière organisée.",
+
+threeLanguages:"Trois langues",
+threeLanguagesDescription:"Arabe, anglais et français.",
+
+terms:"Conditions d'utilisation · Politique de confidentialité",
+
+loginTitle:"Connexion",
+loginDescription:"Connectez-vous pour continuer",
+email:"E-mail",
+password:"Mot de passe",
+
+noAccount:"Vous n'avez pas de compte ?",
+hasAccount:"Vous avez déjà un compte ?",
+
+name:"Nom",
+
+dashboardWelcome:"Bienvenue",
+profile:"Profil",
+accountInformation:"Informations du compte",
+
+balance:"Solde",
+profits:"Bénéfices",
+activeProjects:"Projets actifs",
+
+referralProgram:"Programme de parrainage",
+yourReferral:"Votre lien de parrainage",
+copy:"Copier le lien",
+copied:"Lien de parrainage copié ✓",
+
+settings:"Paramètres",
+language:"Langue",
+chooseLanguage:"Choisissez la langue du site.",
+
+logout:"Déconnexion",
+
+project:"Projet",
+minimumShort:"Minimum",
+dailyReturn:"Rendement quotidien",
+
+noProfits:"Aucun bénéfice enregistré pour le moment."
+}
+
+};
+
+
+/* ==============================================
+   تطبيق اللغة
+   ============================================== */
+
+function applyGlobalLanguage(lang){
+
+const t=SITE_LANGUAGES[lang] || SITE_LANGUAGES.ar;
+
+document.documentElement.lang=lang;
+document.documentElement.dir=t.dir;
+
+localStorage.setItem("language",lang);
+
+
+/* العنوان */
+
+document.title=t.siteName;
+
+
+/* الشعار */
+
+document.querySelectorAll(".logo,.dashboard-logo,.auth-logo").forEach(el=>{
+el.textContent=t.siteName;
+});
+
+
+/* أزرار الدخول والتسجيل */
+
+document.querySelectorAll("#login").forEach(el=>{
+el.textContent=t.login;
+});
+
+document.querySelectorAll("#register").forEach(el=>{
+el.textContent=t.register;
+});
+
+document.querySelectorAll("#heroLogin").forEach(el=>{
+el.textContent=t.loginNow;
+});
+
+document.querySelectorAll("#heroReg").forEach(el=>{
+el.textContent=t.createAccount;
+});
+
+
+/* الصفحة الرئيسية */
+
+const welcome=document.getElementById("welcome");
+if(welcome)welcome.textContent=t.welcome;
+
+const desc=document.getElementById("desc");
+if(desc)desc.textContent=t.description;
+
+const projectsTitle=document.getElementById("projectsTitle");
+if(projectsTitle)projectsTitle.textContent=t.projects;
+
+const projectsDesc=document.getElementById("projectsDesc");
+if(projectsDesc)projectsDesc.textContent=t.chooseProject;
+
+
+/* الدعوات */
+
+const refTitle=document.getElementById("refTitle");
+if(refTitle)refTitle.textContent=t.referral;
+
+const refDesc=document.getElementById("refDesc");
+if(refDesc)refDesc.textContent=t.referralDescription;
+
+const bonusTitle=document.getElementById("bonusTitle");
+if(bonusTitle)bonusTitle.textContent=t.rewards;
+
+const r1=document.getElementById("r1");
+if(r1)r1.textContent=t.level1;
+
+const r2=document.getElementById("r2");
+if(r2)r2.textContent=t.level2;
+
+const r3=document.getElementById("r3");
+if(r3)r3.textContent=t.level3;
+
+
+/* لماذا */
+
+const why=document.getElementById("why");
+if(why)why.textContent=t.why;
+
+const whyDesc=document.getElementById("whyDesc");
+if(whyDesc)whyDesc.textContent=t.whyDescription;
+
+const f1=document.getElementById("f1");
+if(f1)f1.textContent=t.secure;
+
+const f1d=document.getElementById("f1d");
+if(f1d)f1d.textContent=t.secureDescription;
+
+const f2=document.getElementById("f2");
+if(f2)f2.textContent=t.management;
+
+const f2d=document.getElementById("f2d");
+if(f2d)f2d.textContent=t.managementDescription;
+
+const f3=document.getElementById("f3");
+if(f3)f3.textContent=t.threeLanguages;
+
+const f3d=document.getElementById("f3d");
+if(f3d)f3d.textContent=t.threeLanguagesDescription;
+
+
+/* الشروط */
+
+const terms=document.getElementById("terms");
+if(terms)terms.textContent=t.terms;
+
+
+/* صفحة الدخول */
+
+const loginTitle=document.querySelector("#loginPage h1");
+if(loginTitle)loginTitle.textContent=t.loginTitle;
+
+const loginDescription=document.querySelector("#loginPage .sub");
+if(loginDescription)loginDescription.textContent=t.loginDescription;
+
+const loginLabels=document.querySelectorAll("#loginPage label");
+
+if(loginLabels[0])loginLabels[0].textContent=t.email;
+if(loginLabels[1])loginLabels[1].textContent=t.password;
+
+const loginButton=document.getElementById("loginNewBtn");
+if(loginButton)loginButton.textContent=t.loginNow;
+
+
+/* صفحة إنشاء الحساب */
+
+const registerTitle=document.querySelector("#registerPage h1");
+if(registerTitle)registerTitle.textContent=t.register;
+
+const registerDescription=document.querySelector("#registerPage .sub");
+if(registerDescription)registerDescription.textContent=t.createAccount;
+
+const registerLabels=document.querySelectorAll("#registerPage label");
+
+if(registerLabels[0])registerLabels[0].textContent=t.name;
+if(registerLabels[1])registerLabels[1].textContent=t.email;
+if(registerLabels[2])registerLabels[2].textContent=t.password;
+
+const registerButton=document.getElementById("registerNewBtn");
+if(registerButton)registerButton.textContent=t.createAccount;
+
+
+/* لوحة المستخدم */
+
+const topName=document.getElementById("topUserName");
+
+if(topName && topName.dataset.name){
+topName.textContent=topName.dataset.name;
+}
+
+
+const menuItems=document.querySelectorAll(".menu-text");
+
+if(menuItems.length>=4){
+
+menuItems[0].textContent=t.profile;
+menuItems[1].textContent=t.projects;
+menuItems[2].textContent=t.referral;
+menuItems[3].textContent=t.settings;
+
+}
+
+const logout=document.querySelector("#menuLogout .menu-text");
+if(logout)logout.textContent=t.logout;
+
+
+/* الملف الشخصي */
+
+const profileTitle=document.querySelector("#page-profile .dashboard-box h2");
+
+if(profileTitle)
+profileTitle.textContent=t.accountInformation;
+
+const profileLabels=document.querySelectorAll("#page-profile .profile-label");
+
+if(profileLabels[0])profileLabels[0].textContent=t.name;
+if(profileLabels[1])profileLabels[1].textContent=t.email;
+
+
+/* الإحصائيات */
+
+const statTitles=document.querySelectorAll("#page-profile .stat-title");
+
+if(statTitles[0])statTitles[0].textContent=t.balance;
+if(statTitles[1])statTitles[1].textContent=t.profits;
+if(statTitles[2])statTitles[2].textContent=t.activeProjects;
+
+
+/* المشاريع */
+
+const projectTitle=document.querySelector("#page-projects h2");
+
+if(projectTitle)
+projectTitle.textContent=t.projects;
+
+document.querySelectorAll(".inner-project").forEach(card=>{
+
+const rows=card.querySelectorAll(".inner-row");
+
+if(rows[0])
+rows[0].querySelector("span").textContent=t.minimumShort;
+
+if(rows[1])
+rows[1].querySelector("span").textContent=t.dailyReturn;
+
+if(rows[2])
+rows[2].querySelector("span").textContent=t.duration;
+
+if(rows[2])
+rows[2].querySelector(".inner-value").textContent=t.days;
+
+});
+
+
+/* الإحالة */
+
+const referralTitle=document.querySelector("#page-referral h2");
+
+if(referralTitle)
+referralTitle.textContent=t.referralProgram;
+
+const referralStrong=document.querySelector("#page-referral .referral-box strong");
+
+if(referralStrong)
+referralStrong.textContent=t.yourReferral;
+
+const copyButton=document.getElementById("copyReferral");
+
+if(copyButton)
+copyButton.textContent=t.copy;
+
+const rewardTitle=document.querySelector("#page-referral h3");
+
+if(rewardTitle)
+rewardTitle.textContent=t.rewards;
+
+const rewardLabels=document.querySelectorAll(".reward-card span");
+
+if(rewardLabels[0])rewardLabels[0].textContent=t.level1;
+if(rewardLabels[1])rewardLabels[1].textContent=t.level2;
+if(rewardLabels[2])rewardLabels[2].textContent=t.level3;
+
+
+/* الإعدادات */
+
+const settingsTitle=document.querySelector("#page-settings h2");
+
+if(settingsTitle)
+settingsTitle.textContent=t.settings;
+
+const languageTitle=document.getElementById("settingsLanguageTitle");
+
+if(languageTitle)
+languageTitle.textContent=t.language;
+
+const languageDesc=document.getElementById("settingsLanguageDesc");
+
+if(languageDesc)
+languageDesc.textContent=t.chooseLanguage;
+
+
+/* تحديث قائمة اختيار اللغة */
+
+const selector=document.getElementById("dashboardLanguage");
+
+if(selector)
+selector.value=lang;
+
+
+/* ترجمة البطاقات الرئيسية */
+
+if(typeof renderProjects==="function"){
+try{
+renderProjects(lang);
+}catch(e){}
+}
+
+}
+
+
+/* ==============================================
+   تغيير اللغة
+   ============================================== */
+
+document.addEventListener("change",function(e){
+
+if(
+e.target.id==="dashboardLanguage" ||
+e.target.id==="language"
+){
+
+applyGlobalLanguage(e.target.value);
+
+}
+
+});
+
+
+/* ==============================================
+   تشغيل اللغة المحفوظة
+   ============================================== */
+
+(function(){
+
+const saved=localStorage.getItem("language") || "ar";
+
+applyGlobalLanguage(saved);
+
+})();
+
+</script>
+
 </body>
 </html>
