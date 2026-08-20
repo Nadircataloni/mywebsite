@@ -3207,7 +3207,14 @@ return;
 
 }
 
-message.textContent="تم إرسال طلب السحب للمراجعة.";
+const withdrawalNumber =
+"WD-" + Math.floor(100000 + Math.random() * 900000);
+
+message.innerHTML =
+"✅ تم استلام طلب السحب بنجاح.<br>" +
+"<strong>رقم الطلب: " + withdrawalNumber + "</strong><br>" +
+"سيتم مراجعة الطلب وإرسال التأكيد خلال 5 دقائق.";
+
 message.style.color="#087b55";
 
 });
