@@ -354,7 +354,7 @@ document.getElementById("language")
 
 
 <div class="support-float">
-    <div class="support-text" id="supportText">إذا كنت تحتاج إلى مساعدة، اتصل بالدعم</div>
+    <div class="support-text" id="supportText">إذا كنت تحتاج<br>إلى مساعدة<br>اتصل بالدعم</div>
     <a href="https://t.me/Hacker_Shinichi"
        class="telegram-float"
        target="_blank"
@@ -380,7 +380,7 @@ document.getElementById("language")
     padding:6px 10px;
     border-radius:8px;
     font-size:11px;
-    white-space:nowrap;
+    white-space:normal;
     box-shadow:0 3px 10px rgba(0,0,0,.15);
 }
 
@@ -429,12 +429,12 @@ function updateSupportText(lang){
     if(!support) return;
 
     const texts = {
-        ar:"إذا كنت تحتاج إلى مساعدة، اتصل بالدعم",
-        en:"If you need help, contact support",
-        fr:"Si vous avez besoin d'aide, contactez le support"
+        ar:"إذا كنت تحتاج<br>إلى مساعدة<br>اتصل بالدعم",
+        en:"If you need help,<br>contact support",
+        fr:"Si vous avez besoin<br>d'aide, contactez<br>le support"
     };
 
-    support.textContent = texts[lang] || texts.ar;
+    support.innerHTML = texts[lang] || texts.ar;
 }
 
 const oldChangeLanguage = changeLanguage;
