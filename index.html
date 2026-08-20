@@ -58,6 +58,121 @@ nav{width:100%;justify-content:center}
 .ref-grid,.features{grid-template-columns:1fr}
 }
 </style>
+
+<style id="deposit-modal-style">
+
+.deposit-modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.55);
+z-index:99999;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.deposit-modal.show{
+display:flex;
+}
+
+.deposit-modal-box{
+width:100%;
+max-width:520px;
+background:#fff;
+border-radius:20px;
+padding:25px;
+box-shadow:0 15px 50px rgba(0,0,0,.25);
+position:relative;
+max-height:90vh;
+overflow:auto;
+}
+
+.deposit-close{
+position:absolute;
+top:12px;
+left:15px;
+width:38px;
+height:38px;
+border:0;
+border-radius:50%;
+background:#f1f3f4;
+font-size:22px;
+cursor:pointer;
+}
+
+.deposit-title{
+text-align:center;
+color:#087b55;
+font-size:25px;
+margin:5px 0 8px;
+}
+
+.deposit-project-name{
+text-align:center;
+color:#68756f;
+margin-bottom:25px;
+font-size:16px;
+}
+
+.deposit-network{
+background:#f0f8f4;
+border-radius:15px;
+padding:18px;
+margin-top:15px;
+border:1px solid #dceee6;
+}
+
+.deposit-network-title{
+font-weight:800;
+font-size:17px;
+color:#172033;
+margin-bottom:5px;
+}
+
+.deposit-network-name{
+color:#087b55;
+font-weight:bold;
+margin-bottom:12px;
+}
+
+.deposit-address{
+background:#fff;
+border:1px solid #dfe5e2;
+border-radius:10px;
+padding:12px;
+font-size:13px;
+word-break:break-all;
+direction:ltr;
+text-align:left;
+line-height:1.6;
+}
+
+.deposit-copy{
+width:100%;
+margin-top:10px;
+background:#087b55;
+color:#fff;
+border:0;
+border-radius:9px;
+padding:11px;
+cursor:pointer;
+font-size:14px;
+}
+
+.deposit-warning{
+margin-top:20px;
+padding:13px;
+background:#fff8e6;
+border-radius:10px;
+color:#765b13;
+font-size:13px;
+line-height:1.7;
+text-align:center;
+}
+
+</style>
+
 </head>
 
 <body>
@@ -332,6 +447,10 @@ lang==="en"?"Cumulative Profit":
 
 document.documentElement.lang=lang;
 document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+if(window.updateDepositLanguage){
+window.updateDepositLanguage(lang);
+}
+
 
 renderProjects(lang);
 
@@ -1786,6 +1905,10 @@ const t=dashboardTranslations[lang] || dashboardTranslations.ar;
 
 document.documentElement.lang=lang;
 document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+if(window.updateDepositLanguage){
+window.updateDepositLanguage(lang);
+}
+
 
 localStorage.setItem("language",lang);
 
@@ -3008,6 +3131,273 @@ message.style.color="#087b55";
 
 });
 
+
+})();
+
+</script>
+
+
+<!-- نافذة الإيداع -->
+
+<div class="deposit-modal" id="depositModal">
+
+<div class="deposit-modal-box">
+
+<button class="deposit-close" id="depositClose">×</button>
+
+<h2 class="deposit-title" id="depositModalTitle">
+عنوان الإيداع
+</h2>
+
+<div class="deposit-project-name" id="depositProjectName"></div>
+
+
+<div class="deposit-network">
+
+<div class="deposit-network-title">
+USDT — BNB Smart Chain (BEP20)
+</div>
+
+<div class="deposit-network-name">
+BSC
+</div>
+
+<div class="deposit-address" id="bscAddress">
+0x06ce916ad9f89db9b56d2d7144b2b375d21db564
+</div>
+
+<button
+class="deposit-copy"
+data-copy="bscAddress"
+id="copyBsc"
+>
+نسخ العنوان
+</button>
+
+</div>
+
+
+<div class="deposit-network">
+
+<div class="deposit-network-title">
+TRON — TRC20
+</div>
+
+<div class="deposit-network-name">
+TRX
+</div>
+
+<div class="deposit-address" id="tronAddress">
+TSMtwvwrLfGoGQtNWZ6vFMcagJxLW4tRei
+</div>
+
+<button
+class="deposit-copy"
+data-copy="tronAddress"
+id="copyTron"
+>
+نسخ العنوان
+</button>
+
+</div>
+
+
+<div class="deposit-warning" id="depositWarning">
+تأكد من اختيار الشبكة الصحيحة قبل إرسال الأموال.
+إرسال العملة إلى شبكة غير صحيحة قد يؤدي إلى فقدان الأموال.
+</div>
+
+</div>
+
+</div>
+
+
+<script id="deposit-modal-script">
+
+(function(){
+
+const modal=document.getElementById("depositModal");
+const close=document.getElementById("depositClose");
+const projectName=document.getElementById("depositProjectName");
+
+if(!modal)return;
+
+
+/*
+منع الكود القديم من إظهار alert
+واستخدام نافذة الإيداع الجديدة.
+*/
+
+document.addEventListener("click",function(event){
+
+const button=event.target.closest(".deposit-project");
+
+if(!button)return;
+
+event.preventDefault();
+event.stopPropagation();
+event.stopImmediatePropagation();
+
+const projects=[
+"المشروع الأول",
+"المشروع الثاني",
+"المشروع الثالث",
+"المشروع الرابع",
+"المشروع الخامس",
+"المشروع السادس",
+"المشروع السابع",
+"المشروع الثامن",
+"المشروع التاسع",
+"المشروع العاشر"
+];
+
+const index=Number(button.dataset.project);
+
+projectName.textContent=projects[index] || "";
+
+modal.classList.add("show");
+
+},true);
+
+
+/*
+إغلاق النافذة
+*/
+
+close.addEventListener("click",function(){
+
+modal.classList.remove("show");
+
+});
+
+
+/*
+إغلاق عند الضغط خارج النافذة
+*/
+
+modal.addEventListener("click",function(event){
+
+if(event.target===modal){
+
+modal.classList.remove("show");
+
+}
+
+});
+
+
+/*
+نسخ عنوان BSC أو TRON
+*/
+
+document.addEventListener("click",function(event){
+
+const button=event.target.closest(".deposit-copy");
+
+if(!button)return;
+
+event.preventDefault();
+event.stopPropagation();
+
+const element=document.getElementById(button.dataset.copy);
+
+if(!element)return;
+
+const address=element.textContent.trim();
+
+navigator.clipboard.writeText(address).then(function(){
+
+const oldText=button.textContent;
+
+button.textContent="تم نسخ العنوان ✓";
+
+setTimeout(function(){
+
+button.textContent=oldText;
+
+},1800);
+
+}).catch(function(){
+
+/* بديل للمتصفحات التي تمنع Clipboard API */
+
+const textarea=document.createElement("textarea");
+
+textarea.value=address;
+
+document.body.appendChild(textarea);
+
+textarea.select();
+
+document.execCommand("copy");
+
+textarea.remove();
+
+const oldText=button.textContent;
+
+button.textContent="تم نسخ العنوان ✓";
+
+setTimeout(function(){
+
+button.textContent=oldText;
+
+},1800);
+
+});
+
+});
+
+
+/*
+تحديث لغة نافذة الإيداع
+*/
+
+window.updateDepositLanguage=function(lang){
+
+const title=document.getElementById("depositModalTitle");
+const bsc=document.getElementById("copyBsc");
+const tron=document.getElementById("copyTron");
+const warning=document.getElementById("depositWarning");
+
+if(lang==="en"){
+
+if(title)title.textContent="Deposit Address";
+if(bsc)bsc.textContent="Copy Address";
+if(tron)tron.textContent="Copy Address";
+if(warning)warning.textContent=
+"Make sure you select the correct network before sending funds. Sending funds through the wrong network may result in loss of funds.";
+
+}
+
+else if(lang==="fr"){
+
+if(title)title.textContent="Adresse de dépôt";
+if(bsc)bsc.textContent="Copier l'adresse";
+if(tron)tron.textContent="Copier l'adresse";
+if(warning)warning.textContent=
+"Assurez-vous de sélectionner le bon réseau avant d'envoyer des fonds. L'utilisation d'un mauvais réseau peut entraîner une perte des fonds.";
+
+}
+
+else{
+
+if(title)title.textContent="عنوان الإيداع";
+if(bsc)bsc.textContent="نسخ العنوان";
+if(tron)tron.textContent="نسخ العنوان";
+if(warning)warning.textContent=
+"تأكد من اختيار الشبكة الصحيحة قبل إرسال الأموال. إرسال الأموال عبر شبكة خاطئة قد يؤدي إلى فقدان الأموال.";
+
+}
+
+};
+
+const savedLang=localStorage.getItem("language") || "ar";
+
+if(window.updateDepositLanguage){
+
+window.updateDepositLanguage(savedLang);
+
+}
 
 })();
 
