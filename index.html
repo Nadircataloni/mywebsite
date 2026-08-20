@@ -833,82 +833,6 @@ padding:25px 20px;
 </div>
 
 <!-- لوحة المستخدم -->
-<div class="dashboard-page" id="dashboardPage">
-
-<div class="dashboard-top">
-
-<div class="dashboard-logo">ربح تراكمي</div>
-
-<div class="dashboard-actions">
-<button class="home-btn" onclick="backToWebsite()">الرئيسية</button>
-<button class="logout-btn" onclick="logoutNew()">تسجيل الخروج</button>
-</div>
-
-</div>
-
-<div class="dashboard-container">
-
-<div class="dashboard-welcome">
-<h1 id="dashWelcome">مرحبًا بك 👋</h1>
-<p>هذه هي لوحة حسابك الشخصية.</p>
-</div>
-
-<div class="stats">
-
-<div class="stat">
-<span class="stat-title">الرصيد</span>
-<strong class="stat-value">$0.00</strong>
-</div>
-
-<div class="stat">
-<span class="stat-title">الأرباح</span>
-<strong class="stat-value">$0.00</strong>
-</div>
-
-<div class="stat">
-<span class="stat-title">المشاريع النشطة</span>
-<strong class="stat-value">0</strong>
-</div>
-
-</div>
-
-<div class="dashboard-box">
-
-<h2>المشاريع</h2>
-
-<div class="inner-projects" id="innerProjects"></div>
-
-</div>
-
-<div class="dashboard-box">
-
-<h2>برنامج الإحالة</h2>
-
-<div class="referral-box">
-
-<strong>رابط الدعوة الخاص بك</strong>
-
-<div class="referral-link" id="referralLink"></div>
-
-<button class="copy-ref" onclick="copyReferral()">نسخ الرابط</button>
-
-<p id="copyMessage"></p>
-
-</div>
-
-</div>
-
-<div class="dashboard-box">
-
-<h2>معلومات الحساب</h2>
-
-<p>الاسم: <strong id="dashName"></strong></p>
-<p>البريد الإلكتروني: <strong id="dashEmail"></strong></p>
-
-</div>
-
-</div>
-</div>
 
 <script>
 const siteProjects=[
@@ -1110,6 +1034,787 @@ const savedLogin=localStorage.getItem("loggedUser");
 if(savedLogin && localStorage.getItem("user_"+savedLogin)){
 showDashboard(savedLogin);
 }
+</script>
+
+
+<style>
+
+/* ===== لوحة المستخدم الجديدة ===== */
+
+.dashboard-page{
+display:none;
+min-height:100vh;
+background:#f4f7f6;
+}
+
+.dashboard-top{
+height:70px;
+background:#fff;
+border-bottom:1px solid #e6ebe8;
+padding:0 5%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.dashboard-logo{
+font-size:23px;
+font-weight:800;
+color:#087b55;
+}
+
+.dashboard-user-name{
+font-size:14px;
+color:#68756f;
+}
+
+/* زر القائمة */
+
+.menu-button{
+width:42px;
+height:42px;
+border:0;
+border-radius:10px;
+background:#eef7f3;
+color:#087b55;
+font-size:22px;
+cursor:pointer;
+}
+
+/* القائمة */
+
+.side-menu{
+position:fixed;
+top:70px;
+bottom:0;
+width:270px;
+background:#fff;
+box-shadow:0 5px 25px rgba(0,0,0,.10);
+z-index:90;
+padding:20px 15px;
+transition:.25s;
+}
+
+html[dir="rtl"] .side-menu{
+right:-290px;
+}
+
+html[dir="ltr"] .side-menu{
+left:-290px;
+}
+
+html[dir="rtl"] .side-menu.open{
+right:0;
+}
+
+html[dir="ltr"] .side-menu.open{
+left:0;
+}
+
+.menu-user{
+background:#f0f8f4;
+border-radius:14px;
+padding:18px;
+margin-bottom:18px;
+}
+
+.menu-user strong{
+display:block;
+font-size:17px;
+color:#087b55;
+margin-bottom:5px;
+}
+
+.menu-user span{
+font-size:12px;
+color:#68756f;
+word-break:break-all;
+}
+
+.menu-item{
+width:100%;
+display:flex;
+align-items:center;
+gap:12px;
+background:transparent;
+border:0;
+padding:13px 12px;
+border-radius:10px;
+font-size:14px;
+cursor:pointer;
+text-align:inherit;
+color:#172033;
+margin-bottom:4px;
+}
+
+.menu-item:hover,
+.menu-item.active{
+background:#eef7f3;
+color:#087b55;
+}
+
+.menu-icon{
+font-size:20px;
+width:25px;
+text-align:center;
+}
+
+.menu-logout{
+color:#b33;
+margin-top:15px;
+}
+
+.menu-logout:hover{
+background:#f8eeee;
+color:#b33;
+}
+
+/* المحتوى */
+
+.dashboard-container{
+max-width:1150px;
+margin:auto;
+padding:30px 20px 60px;
+}
+
+.dashboard-welcome{
+background:linear-gradient(135deg,#075c42,#10a16d);
+color:#fff;
+border-radius:20px;
+padding:30px;
+margin-bottom:25px;
+}
+
+.dashboard-welcome h1{
+margin:0 0 8px;
+font-size:29px;
+}
+
+.dashboard-welcome p{
+margin:0;
+color:#e8fff6;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+margin-bottom:25px;
+}
+
+.stat{
+background:#fff;
+border-radius:16px;
+padding:23px;
+box-shadow:0 5px 22px rgba(0,0,0,.05);
+}
+
+.stat-title{
+color:#68756f;
+font-size:14px;
+}
+
+.stat-value{
+display:block;
+font-size:27px;
+font-weight:800;
+color:#087b55;
+margin-top:9px;
+}
+
+.dashboard-box{
+background:#fff;
+border-radius:18px;
+padding:25px;
+box-shadow:0 5px 22px rgba(0,0,0,.05);
+margin-bottom:22px;
+}
+
+.dashboard-box h2{
+margin:0 0 18px;
+font-size:22px;
+}
+
+.inner-projects{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+}
+
+.inner-project{
+border:1px solid #edf1ef;
+border-radius:14px;
+padding:18px;
+}
+
+.inner-project h3{
+margin:0 0 12px;
+font-size:18px;
+}
+
+.inner-row{
+display:flex;
+justify-content:space-between;
+padding:8px 0;
+border-bottom:1px solid #edf0ef;
+font-size:13px;
+}
+
+.inner-value{
+font-weight:bold;
+color:#087b55;
+}
+
+.referral-box{
+background:#f0f8f4;
+border-radius:14px;
+padding:20px;
+}
+
+.referral-link{
+background:#fff;
+border:1px solid #dce8e2;
+border-radius:9px;
+padding:12px;
+word-break:break-all;
+margin:12px 0;
+font-size:13px;
+direction:ltr;
+text-align:left;
+}
+
+.copy-ref{
+background:#087b55;
+color:#fff;
+border:0;
+border-radius:9px;
+padding:10px 16px;
+cursor:pointer;
+}
+
+.profile-row{
+display:flex;
+justify-content:space-between;
+padding:14px 0;
+border-bottom:1px solid #edf0ef;
+}
+
+.profile-label{
+color:#68756f;
+}
+
+.subscription{
+border:1px solid #e5ebe8;
+border-radius:15px;
+padding:20px;
+margin-bottom:15px;
+}
+
+.subscription h3{
+margin:0 0 10px;
+color:#087b55;
+}
+
+.reward{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+}
+
+.reward-card{
+background:#f0f8f4;
+border-radius:14px;
+padding:20px;
+text-align:center;
+}
+
+.reward-card strong{
+display:block;
+font-size:28px;
+color:#087b55;
+margin-top:8px;
+}
+
+.settings-option{
+padding:15px;
+border-bottom:1px solid #edf0ef;
+}
+
+@media(max-width:700px){
+
+.dashboard-top{
+padding:0 15px;
+}
+
+.stats{
+grid-template-columns:1fr;
+}
+
+.side-menu{
+width:250px;
+}
+
+.dashboard-container{
+padding:20px 15px 50px;
+}
+
+.reward{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+
+<!-- ===== لوحة المستخدم ===== -->
+
+<div class="dashboard-page" id="dashboardPage">
+
+<header class="dashboard-top">
+
+<button class="menu-button" id="menuButton">☰</button>
+
+<div class="dashboard-logo">
+ربح تراكمي
+</div>
+
+<div class="dashboard-user-name" id="topUserName"></div>
+
+</header>
+
+
+<!-- القائمة الجانبية -->
+
+<div class="side-menu" id="sideMenu">
+
+<div class="menu-user">
+<strong id="menuUserName"></strong>
+<span id="menuUserEmail"></span>
+</div>
+
+<button class="menu-item active" data-page="profile">
+<span class="menu-icon">👤</span>
+<span class="menu-text">الملف الشخصي</span>
+</button>
+
+<button class="menu-item" data-page="projects">
+<span class="menu-icon">📦</span>
+<span class="menu-text">المشاريع</span>
+</button>
+
+<button class="menu-item" data-page="referral">
+<span class="menu-icon">👥</span>
+<span class="menu-text">نظام الإحالة</span>
+</button>
+
+<button class="menu-item" data-page="rewards">
+<span class="menu-icon">🎁</span>
+<span class="menu-text">المكافآت</span>
+</button>
+
+<button class="menu-item" data-page="subscriptions">
+<span class="menu-icon">💳</span>
+<span class="menu-text">الاشتراكات</span>
+</button>
+
+<button class="menu-item" data-page="profits">
+<span class="menu-icon">📊</span>
+<span class="menu-text">الأرباح</span>
+</button>
+
+<button class="menu-item" data-page="settings">
+<span class="menu-icon">⚙️</span>
+<span class="menu-text">الإعدادات</span>
+</button>
+
+<button class="menu-item menu-logout" id="menuLogout">
+<span class="menu-icon">🚪</span>
+<span class="menu-text">تسجيل الخروج</span>
+</button>
+
+</div>
+
+
+<div class="dashboard-container" id="dashboardContent">
+
+<!-- الملف الشخصي -->
+
+<div class="dashboard-section" id="page-profile">
+
+<div class="dashboard-welcome">
+<h1 id="dashWelcome">مرحبًا بك 👋</h1>
+<p>مرحبًا بك في حسابك الشخصي.</p>
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<span class="stat-title">الرصيد</span>
+<strong class="stat-value">$0.00</strong>
+</div>
+
+<div class="stat">
+<span class="stat-title">الأرباح</span>
+<strong class="stat-value">$0.00</strong>
+</div>
+
+<div class="stat">
+<span class="stat-title">المشاريع النشطة</span>
+<strong class="stat-value">0</strong>
+</div>
+
+</div>
+
+<div class="dashboard-box">
+
+<h2>معلومات الحساب</h2>
+
+<div class="profile-row">
+<span class="profile-label">الاسم</span>
+<strong id="dashName"></strong>
+</div>
+
+<div class="profile-row">
+<span class="profile-label">البريد الإلكتروني</span>
+<strong id="dashEmail"></strong>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- المشاريع -->
+
+<div class="dashboard-box" id="page-projects" style="display:none">
+
+<h2>المشاريع</h2>
+
+<div class="inner-projects" id="innerProjects"></div>
+
+</div>
+
+
+<!-- الإحالة -->
+
+<div class="dashboard-box" id="page-referral" style="display:none">
+
+<h2>نظام الإحالة</h2>
+
+<div class="referral-box">
+
+<strong>رابط الدعوة الخاص بك</strong>
+
+<div class="referral-link" id="referralLink"></div>
+
+<button class="copy-ref" id="copyReferral">
+نسخ الرابط
+</button>
+
+<p id="copyMessage"></p>
+
+</div>
+
+</div>
+
+
+<!-- المكافآت -->
+
+<div class="dashboard-box" id="page-rewards" style="display:none">
+
+<h2>المكافآت</h2>
+
+<div class="reward">
+
+<div class="reward-card">
+<span>المستوى الأول</span>
+<strong>10%</strong>
+</div>
+
+<div class="reward-card">
+<span>المستوى الثاني</span>
+<strong>3%</strong>
+</div>
+
+<div class="reward-card">
+<span>المستوى الثالث</span>
+<strong>1%</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- الاشتراكات -->
+
+<div class="dashboard-box" id="page-subscriptions" style="display:none">
+
+<h2>الاشتراكات</h2>
+
+<div class="subscription">
+<h3>المشروع الأول</h3>
+<p>الحد الأدنى: $10</p>
+<p>العائد اليومي: 6%</p>
+</div>
+
+<div class="subscription">
+<h3>المشروع الخامس</h3>
+<p>الحد الأدنى: $100</p>
+<p>العائد اليومي: 10%</p>
+</div>
+
+<div class="subscription">
+<h3>المشروع العاشر</h3>
+<p>الحد الأدنى: $1,000</p>
+<p>العائد اليومي: 15%</p>
+</div>
+
+</div>
+
+
+<!-- الأرباح -->
+
+<div class="dashboard-box" id="page-profits" style="display:none">
+
+<h2>الأرباح</h2>
+
+<div class="stats">
+
+<div class="stat">
+<span class="stat-title">إجمالي الأرباح</span>
+<strong class="stat-value">$0.00</strong>
+</div>
+
+<div class="stat">
+<span class="stat-title">أرباح اليوم</span>
+<strong class="stat-value">$0.00</strong>
+</div>
+
+<div class="stat">
+<span class="stat-title">أرباح الإحالة</span>
+<strong class="stat-value">$0.00</strong>
+</div>
+
+</div>
+
+<p>
+لا توجد أرباح مسجلة حاليًا.
+</p>
+
+</div>
+
+
+<!-- الإعدادات -->
+
+<div class="dashboard-box" id="page-settings" style="display:none">
+
+<h2>الإعدادات</h2>
+
+<div class="settings-option">
+<strong>اللغة</strong>
+<p>يتم استخدام لغة الموقع الحالية.</p>
+</div>
+
+<div class="settings-option">
+<strong>الحساب</strong>
+<p>يمكنك تسجيل الخروج من القائمة الجانبية.</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* ===== بيانات المشاريع ===== */
+
+const dashboardProjects=[
+["المشروع الأول","$10","6%"],
+["المشروع الثاني","$15","7%"],
+["المشروع الثالث","$20","8%"],
+["المشروع الرابع","$50","9%"],
+["المشروع الخامس","$100","10%"],
+["المشروع السادس","$150","11%"],
+["المشروع السابع","$200","12%"],
+["المشروع الثامن","$300","13%"],
+["المشروع التاسع","$500","14%"],
+["المشروع العاشر","$1,000","15%"]
+];
+
+
+/* ===== القائمة ===== */
+
+const menuButton=document.getElementById("menuButton");
+const sideMenu=document.getElementById("sideMenu");
+
+menuButton.onclick=()=>{
+sideMenu.classList.toggle("open");
+};
+
+
+document.querySelectorAll(".menu-item[data-page]").forEach(item=>{
+
+item.onclick=()=>{
+
+document.querySelectorAll(".menu-item").forEach(x=>{
+x.classList.remove("active");
+});
+
+item.classList.add("active");
+
+document.querySelectorAll("[id^='page-']").forEach(page=>{
+page.style.display="none";
+});
+
+const selected=document.getElementById("page-"+item.dataset.page);
+
+if(selected){
+selected.style.display="block";
+}
+
+sideMenu.classList.remove("open");
+
+window.scrollTo(0,0);
+
+};
+
+});
+
+
+/* ===== تسجيل الخروج ===== */
+
+document.getElementById("menuLogout").onclick=()=>{
+
+localStorage.removeItem("loggedUser");
+
+document.getElementById("dashboardPage").style.display="none";
+
+document.querySelector("header:not(.dashboard-top)").style.display="";
+document.querySelector(".hero").style.display="";
+document.querySelector("main").style.display="";
+document.querySelector("footer").style.display="";
+
+window.scrollTo(0,0);
+
+openLoginPage();
+
+};
+
+
+/* ===== عرض لوحة الحساب ===== */
+
+function showDashboard(email){
+
+const raw=localStorage.getItem("user_"+email);
+
+if(!raw)return;
+
+const user=JSON.parse(raw);
+
+document.querySelector("header:not(.dashboard-top)").style.display="none";
+document.querySelector(".hero").style.display="none";
+document.querySelector("main").style.display="none";
+document.querySelector("footer").style.display="none";
+
+document.getElementById("loginPage").style.display="none";
+document.getElementById("registerPage").style.display="none";
+
+document.getElementById("dashboardPage").style.display="block";
+
+document.getElementById("topUserName").textContent=user.name;
+
+document.getElementById("menuUserName").textContent=user.name;
+
+document.getElementById("menuUserEmail").textContent=user.email;
+
+document.getElementById("dashWelcome").textContent="مرحبًا بك "+user.name+" 👋";
+
+document.getElementById("dashName").textContent=user.name;
+
+document.getElementById("dashEmail").textContent=user.email;
+
+
+/* رابط الإحالة */
+
+const referral=
+"https://nadircataloni.github.io/mywebsite/?ref="+
+encodeURIComponent(user.email);
+
+document.getElementById("referralLink").textContent=referral;
+
+
+/* المشاريع */
+
+document.getElementById("innerProjects").innerHTML=
+dashboardProjects.map(p=>`
+
+<div class="inner-project">
+
+<h3>${p[0]}</h3>
+
+<div class="inner-row">
+<span>الحد الأدنى</span>
+<span class="inner-value">${p[1]}</span>
+</div>
+
+<div class="inner-row">
+<span>العائد اليومي</span>
+<span class="inner-value">${p[2]}</span>
+</div>
+
+<div class="inner-row">
+<span>المدة</span>
+<span class="inner-value">30 يومًا</span>
+</div>
+
+</div>
+
+`).join("");
+
+window.scrollTo(0,0);
+
+}
+
+
+/* ===== نسخ رابط الإحالة ===== */
+
+document.getElementById("copyReferral").onclick=()=>{
+
+const text=document.getElementById("referralLink").textContent;
+
+navigator.clipboard.writeText(text).then(()=>{
+
+document.getElementById("copyMessage").textContent=
+"تم نسخ رابط الدعوة ✓";
+
+document.getElementById("copyMessage").style.color="#087b55";
+
+});
+
+};
+
+
+/* ===== الدخول التلقائي ===== */
+
+const automaticLogin=localStorage.getItem("loggedUser");
+
+if(
+automaticLogin &&
+localStorage.getItem("user_"+automaticLogin)
+){
+
+showDashboard(automaticLogin);
+
+}
+
 </script>
 
 </body>
