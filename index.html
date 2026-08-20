@@ -11,34 +11,50 @@ header{background:#fff;border-bottom:1px solid #e6ebe8;padding:15px 5%;display:f
 .logo{font-size:25px;font-weight:800;color:#087b55}
 nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 button,select{border:0;border-radius:9px;padding:11px 17px;font-size:14px;cursor:pointer}
-.login{background:#eef7f3;color:#087b55}.register{background:#087b55;color:#fff}
+.login{background:#eef7f3;color:#087b55}
+.register{background:#087b55;color:#fff}
 select{background:#f1f3f4}
+
 .hero{background:linear-gradient(135deg,#075c42,#10a16d);color:#fff;text-align:center;padding:70px 20px}
-.hero h1{font-size:42px;margin:0 0 15px}.hero p{font-size:19px;line-height:1.8;max-width:700px;margin:auto;color:#e8fff6}
-.hero-buttons{margin-top:28px}.hero-buttons button{margin:5px;padding:14px 25px}
-.hero-register{background:#fff;color:#087b55}.hero-login{background:transparent;color:#fff;border:1px solid #fff}
+.hero h1{font-size:42px;margin:0 0 15px}
+.hero p{font-size:19px;line-height:1.8;max-width:700px;margin:auto;color:#e8fff6}
+.hero-buttons{margin-top:28px}
+.hero-buttons button{margin:5px;padding:14px 25px}
+.hero-register{background:#fff;color:#087b55}
+.hero-login{background:transparent;color:#fff;border:1px solid #fff}
+
 .container{max-width:1150px;margin:auto;padding:0 20px}
-section{margin:55px 0}.title{text-align:center;margin-bottom:30px}.title h2{font-size:30px;margin:0 0 8px}.title p{color:#68756f}
+section{margin:55px 0}
+.title{text-align:center;margin-bottom:30px}
+.title h2{font-size:30px;margin:0 0 8px}
+.title p{color:#68756f}
+
 .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
 .card{background:#fff;border-radius:16px;padding:24px;box-shadow:0 6px 25px rgba(0,0,0,.06);border:1px solid #edf1ef}
 .card h3{margin:0 0 20px;font-size:21px}
 .row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #edf0ef}
 .value{font-weight:bold;color:#087b55}
 .rate{font-size:25px;font-weight:800;color:#087b55;margin:15px 0}
-.project-button{width:100%;background:#087b55;color:#fff;margin-top:18px}
+
 .referral{background:#fff;border-radius:18px;padding:30px;text-align:center;box-shadow:0 6px 25px rgba(0,0,0,.06)}
 .ref-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:25px}
 .ref{background:#f0f8f4;padding:22px;border-radius:14px}
 .ref strong{display:block;font-size:27px;color:#087b55;margin-top:8px}
+
 .features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .feature{background:#fff;padding:25px;border-radius:15px;text-align:center;box-shadow:0 6px 22px rgba(0,0,0,.05)}
 .icon{font-size:32px}
+
 footer{background:#172033;color:#fff;text-align:center;padding:40px 20px;margin-top:60px}
 footer p{color:#c7ced5}
+
 @media(max-width:700px){
-header{flex-wrap:wrap}.logo{width:100%;text-align:center}
-nav{width:100%;justify-content:center}.hero{padding:55px 18px}
-.hero h1{font-size:31px}.hero p{font-size:16px}
+header{flex-wrap:wrap}
+.logo{width:100%;text-align:center}
+nav{width:100%;justify-content:center}
+.hero{padding:55px 18px}
+.hero h1{font-size:31px}
+.hero p{font-size:16px}
 .ref-grid,.features{grid-template-columns:1fr}
 }
 </style>
@@ -104,9 +120,23 @@ nav{width:100%;justify-content:center}.hero{padding:55px 18px}
 </div>
 
 <div class="features">
-<div class="feature"><div class="icon">🔐</div><h3 id="f1">حساب آمن</h3><p id="f1d">إدارة معلومات الحساب من مكان واحد.</p></div>
-<div class="feature"><div class="icon">📊</div><h3 id="f2">إدارة واضحة</h3><p id="f2d">عرض تفاصيل المشاريع بطريقة منظمة.</p></div>
-<div class="feature"><div class="icon">🌍</div><h3 id="f3">ثلاث لغات</h3><p id="f3d">العربية والإنجليزية والفرنسية.</p></div>
+<div class="feature">
+<div class="icon">🔐</div>
+<h3 id="f1">حساب آمن</h3>
+<p id="f1d">إدارة معلومات الحساب من مكان واحد.</p>
+</div>
+
+<div class="feature">
+<div class="icon">📊</div>
+<h3 id="f2">إدارة واضحة</h3>
+<p id="f2d">عرض تفاصيل المشاريع بطريقة منظمة.</p>
+</div>
+
+<div class="feature">
+<div class="icon">🌍</div>
+<h3 id="f3">ثلاث لغات</h3>
+<p id="f3d">العربية والإنجليزية والفرنسية.</p>
+</div>
 </div>
 </section>
 
@@ -118,6 +148,7 @@ nav{width:100%;justify-content:center}.hero{padding:55px 18px}
 </footer>
 
 <script>
+
 const projects=[
 ["المشروع الأول","$10","6%"],
 ["المشروع الثاني","$15","7%"],
@@ -132,96 +163,190 @@ const projects=[
 ];
 
 const T={
+
 ar:{
 welcome:"مرحبًا بكم في موقع ربح تراكمي",
 desc:"منصة رقمية لإدارة المشاريع والحسابات.",
-login:"تسجيل الدخول",register:"إنشاء حساب",
-projects:"المشاريع",choose:"اختر المشروع المناسب لك",
+login:"تسجيل الدخول",
+register:"إنشاء حساب",
+projects:"المشاريع",
+choose:"اختر المشروع المناسب لك",
 minimum:"الحد الأدنى للإيداع",
 daily:"العائد اليومي",
 duration:"مدة المشروع",
-details:"عرض التفاصيل",
 days:"30 يومًا",
 ref:"برنامج الدعوات",
 refd:"شارك رابط الدعوة الخاص بك وفق شروط البرنامج.",
 bonus:"مستويات المكافآت",
-r1:"المستوى الأول",r2:"المستوى الثاني",r3:"المستوى الثالث",
-why:"لماذا ربح تراكمي؟",whyD:"واجهة بسيطة وسهلة الاستخدام",
-f1:"حساب آمن",f1d:"إدارة معلومات الحساب من مكان واحد.",
-f2:"إدارة واضحة",f2d:"عرض تفاصيل المشاريع بطريقة منظمة.",
-f3:"ثلاث لغات",f3d:"العربية والإنجليزية والفرنسية.",
+r1:"المستوى الأول",
+r2:"المستوى الثاني",
+r3:"المستوى الثالث",
+why:"لماذا ربح تراكمي؟",
+whyD:"واجهة بسيطة وسهلة الاستخدام",
+f1:"حساب آمن",
+f1d:"إدارة معلومات الحساب من مكان واحد.",
+f2:"إدارة واضحة",
+f2d:"عرض تفاصيل المشاريع بطريقة منظمة.",
+f3:"ثلاث لغات",
+f3d:"العربية والإنجليزية والفرنسية.",
 terms:"شروط الخدمة · سياسة الخصوصية"
 },
+
 en:{
 welcome:"Welcome to the Cumulative Profit site",
 desc:"A digital platform for managing projects and accounts.",
-login:"Login",register:"Register",
-projects:"Projects",choose:"Choose the project that suits you",
-minimum:"Minimum deposit",daily:"Daily return",
-duration:"Project duration",details:"View details",days:"30 days",
-ref:"Referral Program",refd:"Share your referral link according to the program terms.",
-bonus:"Reward Levels",r1:"Level One",r2:"Level Two",r3:"Level Three",
-why:"Why Cumulative Profit?",whyD:"A simple and easy-to-use interface",
-f1:"Secure Account",f1d:"Manage your account information in one place.",
-f2:"Clear Management",f2d:"View project details in an organized way.",
-f3:"Three Languages",f3d:"Arabic, English and French.",
+login:"Login",
+register:"Register",
+projects:"Projects",
+choose:"Choose the project that suits you",
+minimum:"Minimum deposit",
+daily:"Daily return",
+duration:"Project duration",
+days:"30 days",
+ref:"Referral Program",
+refd:"Share your referral link according to the program terms.",
+bonus:"Reward Levels",
+r1:"Level One",
+r2:"Level Two",
+r3:"Level Three",
+why:"Why Cumulative Profit?",
+whyD:"A simple and easy-to-use interface",
+f1:"Secure Account",
+f1d:"Manage your account information in one place.",
+f2:"Clear Management",
+f2d:"View project details in an organized way.",
+f3:"Three Languages",
+f3d:"Arabic, English and French.",
 terms:"Terms of Service · Privacy Policy"
 },
+
 fr:{
 welcome:"Bienvenue sur le site des profits cumulatifs",
 desc:"Une plateforme numérique pour gérer les projets et les comptes.",
-login:"Connexion",register:"Créer un compte",
-projects:"Projets",choose:"Choisissez le projet qui vous convient",
-minimum:"Dépôt minimum",daily:"Rendement quotidien",
-duration:"Durée du projet",details:"Voir les détails",days:"30 jours",
-ref:"Programme de parrainage",refd:"Partagez votre lien selon les conditions du programme.",
-bonus:"Niveaux de récompenses",r1:"Niveau Un",r2:"Niveau Deux",r3:"Niveau Trois",
-why:"Pourquoi Profits Cumulatifs ?",whyD:"Une interface simple et facile à utiliser",
-f1:"Compte sécurisé",f1d:"Gérez les informations de votre compte en un seul endroit.",
-f2:"Gestion claire",f2d:"Consultez les détails des projets de manière organisée.",
-f3:"Trois langues",f3d:"Arabe, anglais et français.",
+login:"Connexion",
+register:"Créer un compte",
+projects:"Projets",
+choose:"Choisissez le projet qui vous convient",
+minimum:"Dépôt minimum",
+daily:"Rendement quotidien",
+duration:"Durée du projet",
+days:"30 jours",
+ref:"Programme de parrainage",
+refd:"Partagez votre lien selon les conditions du programme.",
+bonus:"Niveaux de récompenses",
+r1:"Niveau Un",
+r2:"Niveau Deux",
+r3:"Niveau Trois",
+why:"Pourquoi Profits Cumulatifs ?",
+whyD:"Une interface simple et facile à utiliser",
+f1:"Compte sécurisé",
+f1d:"Gérez les informations de votre compte en un seul endroit.",
+f2:"Gestion claire",
+f2d:"Consultez les détails des projets de manière organisée.",
+f3:"Trois langues",
+f3d:"Arabe, anglais et français.",
 terms:"Conditions d'utilisation · Politique de confidentialité"
-}};
+}
+};
 
-function set(id,v){document.getElementById(id).textContent=v}
+function set(id,v){
+document.getElementById(id).textContent=v;
+}
 
 function renderProjects(lang){
+
 const t=T[lang];
+
 document.getElementById("projects").innerHTML=projects.map((p,i)=>`
+
 <div class="card">
+
 <h3>${p[0]}</h3>
-<div class="row"><span>${t.minimum}</span><span class="value">${p[1]}</span></div>
+
+<div class="row">
+<span>${t.minimum}</span>
+<span class="value">${p[1]}</span>
+</div>
+
 <div class="rate">${p[2]}</div>
-<div class="row"><span>${t.daily}</span><span class="value">${p[2]}</span></div>
-<div class="row"><span>${t.duration}</span><span class="value">${t.days}</span></div>
-<button class="project-button">${t.details}</button>
-</div>`).join("");
+
+<div class="row">
+<span>${t.daily}</span>
+<span class="value">${p[2]}</span>
+</div>
+
+<div class="row">
+<span>${t.duration}</span>
+<span class="value">${t.days}</span>
+</div>
+
+</div>
+
+`).join("");
+
 }
 
 function changeLanguage(lang){
+
 const t=T[lang];
-set("welcome",t.welcome);set("desc",t.desc);
-set("login",t.login);set("register",t.register);
-set("heroReg",t.register);set("heroLogin",t.login);
-set("projectsTitle",t.projects);set("projectsDesc",t.choose);
-set("refTitle",t.ref);set("refDesc",t.refd);set("bonusTitle",t.bonus);
-set("r1",t.r1);set("r2",t.r2);set("r3",t.r3);
-set("why",t.why);set("whyDesc",t.whyD);
-set("f1",t.f1);set("f1d",t.f1d);
-set("f2",t.f2);set("f2d",t.f2d);
-set("f3",t.f3);set("f3d",t.f3d);
+
+set("welcome",t.welcome);
+set("desc",t.desc);
+set("login",t.login);
+set("register",t.register);
+set("heroReg",t.register);
+set("heroLogin",t.login);
+
+set("projectsTitle",t.projects);
+set("projectsDesc",t.choose);
+
+set("refTitle",t.ref);
+set("refDesc",t.refd);
+set("bonusTitle",t.bonus);
+
+set("r1",t.r1);
+set("r2",t.r2);
+set("r3",t.r3);
+
+set("why",t.why);
+set("whyDesc",t.whyD);
+
+set("f1",t.f1);
+set("f1d",t.f1d);
+
+set("f2",t.f2);
+set("f2d",t.f2d);
+
+set("f3",t.f3);
+set("f3d",t.f3d);
+
 set("terms",t.terms);
-set("copy","© 2026 "+(lang==="ar"?"ربح تراكمي":lang==="en"?"Cumulative Profit":"Profits Cumulatifs"));
+
+set(
+"copy",
+"© 2026 "+
+(lang==="ar"?"ربح تراكمي":
+lang==="en"?"Cumulative Profit":
+"Profits Cumulatifs")
+);
+
 document.documentElement.lang=lang;
 document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+
 renderProjects(lang);
+
 localStorage.setItem("language",lang);
 }
 
 const saved=localStorage.getItem("language")||"ar";
+
 document.getElementById("language").value=saved;
+
 changeLanguage(saved);
-document.getElementById("language").addEventListener("change",e=>changeLanguage(e.target.value));
+
+document.getElementById("language")
+.addEventListener("change",e=>changeLanguage(e.target.value));
+
 </script>
 
 </body>
