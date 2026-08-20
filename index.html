@@ -778,10 +778,10 @@ padding:25px 20px;
 <p class="sub">ادخل إلى حسابك للمتابعة</p>
 
 <label>البريد الإلكتروني</label>
-<input id="loginEmailNew" type="email" autocomplete="email">
+<input id="loginEmailNew" name="username" type="email" autocomplete="username">
 
 <label>كلمة المرور</label>
-<input id="loginPasswordNew" type="password" autocomplete="current-password">
+<input id="loginPasswordNew" name="password" type="password" autocomplete="current-password">
 
 <button class="auth-main-btn" id="loginNewBtn">تسجيل الدخول</button>
 
@@ -814,10 +814,10 @@ padding:25px 20px;
 <input id="regNameNew" type="text" autocomplete="name">
 
 <label>البريد الإلكتروني</label>
-<input id="regEmailNew" type="email" autocomplete="email">
+<input id="regEmailNew" name="username" type="email" autocomplete="username">
 
 <label>كلمة المرور</label>
-<input id="regPasswordNew" type="password" autocomplete="new-password">
+<input id="regPasswordNew" name="password" type="password" autocomplete="new-password">
 
 <button class="auth-main-btn" id="registerNewBtn">إنشاء الحساب</button>
 
@@ -1007,10 +1007,19 @@ document.querySelector("main").style.display="";
 document.querySelector("footer").style.display="";
 
 window.scrollTo(0,0);
+openLoginPage();
 }
 
 function backToWebsite(){
-closeAuthPages();
+
+document.getElementById("dashboardPage").style.display="none";
+
+document.querySelector("header").style.display="";
+document.querySelector(".hero").style.display="";
+document.querySelector("main").style.display="";
+document.querySelector("footer").style.display="";
+
+window.scrollTo(0,0);
 }
 
 function copyReferral(){
