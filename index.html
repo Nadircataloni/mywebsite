@@ -1643,11 +1643,17 @@ grid-template-columns:1fr;
 
 <div class="dashboard-box" id="page-referral" style="display:none">
 
-<h2>نظام الإحالة</h2>
+<h2 id="referralPageTitle">برنامج التسويق بالعمولة</h2>
 
 <div class="referral-box">
 
-<strong>رابط الدعوة الخاص بك</strong>
+<h3 id="affiliateHeadline">💰 اربح من دعوة أصدقائك!</h3>
+
+<p id="affiliateDescription">
+شارك رابط الدعوة الخاص بك وابدأ في تحقيق أرباح من الإيداعات المؤهلة.
+</p>
+
+<strong id="yourReferralTitle">رابط الدعوة الخاص بك</strong>
 
 <div class="referral-link" id="referralLink"></div>
 
@@ -1659,12 +1665,60 @@ grid-template-columns:1fr;
 
 </div>
 
+<div class="affiliate-rewards"
+style="
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:18px;
+margin-top:25px;
+">
+
+<div class="reward-card">
+
+<div id="firstReferralTitle">
+🎁 أول إحالة
 </div>
 
+<strong>50%</strong>
 
-<!-- المكافآت -->
+<p id="firstReferralText">
+تحصل على 50% من قيمة أول إيداع مؤهل للشخص الذي سجل عن طريق رابطك.
+</p>
 
-<!-- السحب -->
+</div>
+
+<div class="reward-card">
+
+<div id="additionalReferralTitle">
+💵 كل إحالة إضافية
+</div>
+
+<strong>20%</strong>
+
+<p id="additionalReferralText">
+تحصل على 20% من قيمة أول إيداع مؤهل لكل مستخدم جديد آخر عن طريق رابطك.
+</p>
+
+</div>
+
+</div>
+
+<div id="affiliateNote"
+style="
+margin-top:22px;
+padding:16px;
+border-radius:12px;
+background:#f0f8f4;
+color:#087b55;
+line-height:1.8;
+text-align:center;
+">
+
+كلما دعوت مستخدمين أكثر، زادت فرصك في تحقيق أرباح من برنامج التسويق بالعمولة.
+
+</div>
+
+</div>
 
 <div class="dashboard-box" id="page-withdraw" style="display:none">
 
@@ -2016,7 +2070,7 @@ if(copyBtn)copyBtn.textContent=t.copy;
 
 /* المكافآت */
 
-const rewardTitle=document.querySelector("#page-referral h3");
+const rewardTitle=document.querySelector("#page-referral .OLD_REWARD_TITLE");
 
 if(rewardTitle)rewardTitle.textContent=t.rewards;
 
@@ -2813,7 +2867,7 @@ const copyButton=document.getElementById("copyReferral");
 if(copyButton)
 copyButton.textContent=t.copy;
 
-const rewardTitle=document.querySelector("#page-referral h3");
+const rewardTitle=document.querySelector("#page-referral .OLD_REWARD_TITLE");
 
 if(rewardTitle)
 rewardTitle.textContent=t.rewards;
