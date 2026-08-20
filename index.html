@@ -13,7 +13,7 @@ nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 button,select{border:0;border-radius:9px;padding:11px 17px;font-size:14px;cursor:pointer}
 .login{background:#eef7f3;color:#087b55}.register{background:#087b55;color:#fff}
 select{background:#f1f3f4}
-.hero{background:linear-gradient(135deg,#075c42,#10a16d);color:#fff;text-align:center;padding:75px 20px}
+.hero{background:linear-gradient(135deg,#075c42,#10a16d);color:#fff;text-align:center;padding:70px 20px}
 .hero h1{font-size:42px;margin:0 0 15px}.hero p{font-size:19px;line-height:1.8;max-width:700px;margin:auto;color:#e8fff6}
 .hero-buttons{margin-top:28px}.hero-buttons button{margin:5px;padding:14px 25px}
 .hero-register{background:#fff;color:#087b55}.hero-login{background:transparent;color:#fff;border:1px solid #fff}
@@ -22,26 +22,28 @@ section{margin:55px 0}.title{text-align:center;margin-bottom:30px}.title h2{font
 .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
 .card{background:#fff;border-radius:16px;padding:24px;box-shadow:0 6px 25px rgba(0,0,0,.06);border:1px solid #edf1ef}
 .card h3{margin:0 0 20px;font-size:21px}
-.row{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #edf0ef}
+.row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #edf0ef}
 .value{font-weight:bold;color:#087b55}
-.daily{font-size:25px;font-weight:800;color:#087b55;margin:15px 0}
+.rate{font-size:25px;font-weight:800;color:#087b55;margin:15px 0}
 .project-button{width:100%;background:#087b55;color:#fff;margin-top:18px}
-.banner{background:#fff;border-radius:18px;padding:30px;text-align:center;box-shadow:0 6px 25px rgba(0,0,0,.06)}
+.referral{background:#fff;border-radius:18px;padding:30px;text-align:center;box-shadow:0 6px 25px rgba(0,0,0,.06)}
 .ref-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:25px}
-.ref{background:#f0f8f4;padding:25px;border-radius:14px}
-.ref strong{display:block;font-size:28px;color:#087b55;margin-top:8px}
+.ref{background:#f0f8f4;padding:22px;border-radius:14px}
+.ref strong{display:block;font-size:27px;color:#087b55;margin-top:8px}
 .features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .feature{background:#fff;padding:25px;border-radius:15px;text-align:center;box-shadow:0 6px 22px rgba(0,0,0,.05)}
-.icon{font-size:32px;margin-bottom:10px}
+.icon{font-size:32px}
 footer{background:#172033;color:#fff;text-align:center;padding:40px 20px;margin-top:60px}
 footer p{color:#c7ced5}
 @media(max-width:700px){
-header{flex-wrap:wrap}.logo{width:100%;text-align:center}nav{width:100%;justify-content:center}
-.hero{padding:55px 18px}.hero h1{font-size:31px}.hero p{font-size:16px}
+header{flex-wrap:wrap}.logo{width:100%;text-align:center}
+nav{width:100%;justify-content:center}.hero{padding:55px 18px}
+.hero h1{font-size:31px}.hero p{font-size:16px}
 .ref-grid,.features{grid-template-columns:1fr}
 }
 </style>
 </head>
+
 <body>
 
 <header>
@@ -60,7 +62,7 @@ header{flex-wrap:wrap}.logo{width:100%;text-align:center}nav{width:100%;justify-
 <section class="hero">
 <div class="container">
 <h1 id="welcome">مرحبًا بكم في موقع ربح تراكمي</h1>
-<p id="desc">منصة رقمية لإدارة المشاريع والحسابات والمكافآت.</p>
+<p id="desc">منصة رقمية لإدارة المشاريع والحسابات.</p>
 <div class="hero-buttons">
 <button class="hero-register" id="heroReg">إنشاء حساب</button>
 <button class="hero-login" id="heroLogin">تسجيل الدخول</button>
@@ -73,50 +75,20 @@ header{flex-wrap:wrap}.logo{width:100%;text-align:center}nav{width:100%;justify-
 <section>
 <div class="title">
 <h2 id="projectsTitle">المشاريع</h2>
-<p id="projectsDesc">اختر المشروع المناسب لك واطلع على تفاصيله</p>
+<p id="projectsDesc">اختر المشروع المناسب لك</p>
 </div>
 
-<div class="projects">
-
-<div class="card">
-<h3 id="p1">المشروع الأول</h3>
-<div class="row"><span id="min">الحد الأدنى</span><span class="value">$100</span></div>
-<div class="daily">$16.00</div>
-<div class="row"><span id="daily1">العائد اليومي</span><span class="value">$16.00</span></div>
-<div class="row"><span id="duration">مدة المشروع</span><span class="value">180 يوم</span></div>
-<button class="project-button" id="details">عرض التفاصيل</button>
-</div>
-
-<div class="card">
-<h3 id="p2">المشروع الثاني</h3>
-<div class="row"><span id="min2">الحد الأدنى</span><span class="value">$500</span></div>
-<div class="daily">$57.50</div>
-<div class="row"><span id="daily2">العائد اليومي</span><span class="value">$57.50</span></div>
-<div class="row"><span id="duration2">مدة المشروع</span><span class="value">180 يوم</span></div>
-<button class="project-button" id="details2">عرض التفاصيل</button>
-</div>
-
-<div class="card">
-<h3 id="p3">المشروع الثالث</h3>
-<div class="row"><span id="min3">الحد الأدنى</span><span class="value">$2,000</span></div>
-<div class="daily">$240.00</div>
-<div class="row"><span id="daily3">العائد اليومي</span><span class="value">$240.00</span></div>
-<div class="row"><span id="duration3">مدة المشروع</span><span class="value">180 يوم</span></div>
-<button class="project-button" id="details3">عرض التفاصيل</button>
-</div>
-
-</div>
+<div class="projects" id="projects"></div>
 </section>
 
 <section>
 <div class="title">
 <h2 id="refTitle">برنامج الدعوات</h2>
-<p id="refDesc">شارك رابط الدعوة الخاص بك واحصل على مكافآت وفق شروط البرنامج.</p>
+<p id="refDesc">شارك رابط الدعوة الخاص بك وفق شروط البرنامج.</p>
 </div>
 
-<div class="banner">
+<div class="referral">
 <h3 id="bonusTitle">مستويات المكافآت</h3>
-
 <div class="ref-grid">
 <div class="ref"><span id="r1">المستوى الأول</span><strong>10%</strong></div>
 <div class="ref"><span id="r2">المستوى الثاني</span><strong>3%</strong></div>
@@ -132,23 +104,9 @@ header{flex-wrap:wrap}.logo{width:100%;text-align:center}nav{width:100%;justify-
 </div>
 
 <div class="features">
-<div class="feature">
-<div class="icon">🔐</div>
-<h3 id="f1">حساب آمن</h3>
-<p id="f1d">إدارة معلومات الحساب من مكان واحد.</p>
-</div>
-
-<div class="feature">
-<div class="icon">📊</div>
-<h3 id="f2">إدارة واضحة</h3>
-<p id="f2d">عرض تفاصيل المشاريع بطريقة منظمة.</p>
-</div>
-
-<div class="feature">
-<div class="icon">🌍</div>
-<h3 id="f3">ثلاث لغات</h3>
-<p id="f3d">العربية والإنجليزية والفرنسية.</p>
-</div>
+<div class="feature"><div class="icon">🔐</div><h3 id="f1">حساب آمن</h3><p id="f1d">إدارة معلومات الحساب من مكان واحد.</p></div>
+<div class="feature"><div class="icon">📊</div><h3 id="f2">إدارة واضحة</h3><p id="f2d">عرض تفاصيل المشاريع بطريقة منظمة.</p></div>
+<div class="feature"><div class="icon">🌍</div><h3 id="f3">ثلاث لغات</h3><p id="f3d">العربية والإنجليزية والفرنسية.</p></div>
 </div>
 </section>
 
@@ -160,84 +118,111 @@ header{flex-wrap:wrap}.logo{width:100%;text-align:center}nav{width:100%;justify-
 </footer>
 
 <script>
+const projects=[
+["المشروع الأول","$10","6%"],
+["المشروع الثاني","$15","7%"],
+["المشروع الثالث","$20","8%"],
+["المشروع الرابع","$50","9%"],
+["المشروع الخامس","$100","10%"],
+["المشروع السادس","$150","11%"],
+["المشروع السابع","$200","12%"],
+["المشروع الثامن","$300","13%"],
+["المشروع التاسع","$500","14%"],
+["المشروع العاشر","$1,000","15%"]
+];
+
 const T={
 ar:{
 welcome:"مرحبًا بكم في موقع ربح تراكمي",
-desc:"منصة رقمية لإدارة المشاريع والحسابات والمكافآت.",
+desc:"منصة رقمية لإدارة المشاريع والحسابات.",
 login:"تسجيل الدخول",register:"إنشاء حساب",
-projectsTitle:"المشاريع",projectsDesc:"اختر المشروع المناسب لك واطلع على تفاصيله",
-p1:"المشروع الأول",p2:"المشروع الثاني",p3:"المشروع الثالث",
-min:"الحد الأدنى",daily:"العائد اليومي",duration:"مدة المشروع",details:"عرض التفاصيل",
-refTitle:"برنامج الدعوات",refDesc:"شارك رابط الدعوة الخاص بك واحصل على مكافآت وفق شروط البرنامج.",
-bonusTitle:"مستويات المكافآت",
+projects:"المشاريع",choose:"اختر المشروع المناسب لك",
+minimum:"الحد الأدنى للإيداع",
+daily:"العائد اليومي",
+duration:"مدة المشروع",
+details:"عرض التفاصيل",
+days:"30 يومًا",
+ref:"برنامج الدعوات",
+refd:"شارك رابط الدعوة الخاص بك وفق شروط البرنامج.",
+bonus:"مستويات المكافآت",
 r1:"المستوى الأول",r2:"المستوى الثاني",r3:"المستوى الثالث",
-why:"لماذا ربح تراكمي؟",whyDesc:"واجهة بسيطة وسهلة الاستخدام",
+why:"لماذا ربح تراكمي؟",whyD:"واجهة بسيطة وسهلة الاستخدام",
 f1:"حساب آمن",f1d:"إدارة معلومات الحساب من مكان واحد.",
 f2:"إدارة واضحة",f2d:"عرض تفاصيل المشاريع بطريقة منظمة.",
 f3:"ثلاث لغات",f3d:"العربية والإنجليزية والفرنسية.",
-terms:"شروط الخدمة · سياسة الخصوصية",dir:"rtl"
+terms:"شروط الخدمة · سياسة الخصوصية"
 },
 en:{
 welcome:"Welcome to the Cumulative Profit site",
-desc:"A digital platform for managing projects, accounts and rewards.",
+desc:"A digital platform for managing projects and accounts.",
 login:"Login",register:"Register",
-projectsTitle:"Projects",projectsDesc:"Choose a project and view its details",
-p1:"Project One",p2:"Project Two",p3:"Project Three",
-min:"Minimum",daily:"Daily return",duration:"Project duration",details:"View details",
-refTitle:"Referral Program",refDesc:"Share your referral link and earn rewards according to the program terms.",
-bonusTitle:"Reward Levels",
-r1:"Level One",r2:"Level Two",r3:"Level Three",
-why:"Why Cumulative Profit?",whyDesc:"A simple and easy-to-use interface",
+projects:"Projects",choose:"Choose the project that suits you",
+minimum:"Minimum deposit",daily:"Daily return",
+duration:"Project duration",details:"View details",days:"30 days",
+ref:"Referral Program",refd:"Share your referral link according to the program terms.",
+bonus:"Reward Levels",r1:"Level One",r2:"Level Two",r3:"Level Three",
+why:"Why Cumulative Profit?",whyD:"A simple and easy-to-use interface",
 f1:"Secure Account",f1d:"Manage your account information in one place.",
 f2:"Clear Management",f2d:"View project details in an organized way.",
 f3:"Three Languages",f3d:"Arabic, English and French.",
-terms:"Terms of Service · Privacy Policy",dir:"ltr"
+terms:"Terms of Service · Privacy Policy"
 },
 fr:{
 welcome:"Bienvenue sur le site des profits cumulatifs",
-desc:"Une plateforme numérique pour gérer les projets, les comptes et les récompenses.",
+desc:"Une plateforme numérique pour gérer les projets et les comptes.",
 login:"Connexion",register:"Créer un compte",
-projectsTitle:"Projets",projectsDesc:"Choisissez un projet et consultez ses détails",
-p1:"Projet Un",p2:"Projet Deux",p3:"Projet Trois",
-min:"Minimum",daily:"Rendement quotidien",duration:"Durée du projet",details:"Voir les détails",
-refTitle:"Programme de parrainage",refDesc:"Partagez votre lien de parrainage et gagnez des récompenses selon les conditions du programme.",
-bonusTitle:"Niveaux de récompenses",
-r1:"Niveau Un",r2:"Niveau Deux",r3:"Niveau Trois",
-why:"Pourquoi Profits Cumulatifs ?",whyDesc:"Une interface simple et facile à utiliser",
+projects:"Projets",choose:"Choisissez le projet qui vous convient",
+minimum:"Dépôt minimum",daily:"Rendement quotidien",
+duration:"Durée du projet",details:"Voir les détails",days:"30 jours",
+ref:"Programme de parrainage",refd:"Partagez votre lien selon les conditions du programme.",
+bonus:"Niveaux de récompenses",r1:"Niveau Un",r2:"Niveau Deux",r3:"Niveau Trois",
+why:"Pourquoi Profits Cumulatifs ?",whyD:"Une interface simple et facile à utiliser",
 f1:"Compte sécurisé",f1d:"Gérez les informations de votre compte en un seul endroit.",
 f2:"Gestion claire",f2d:"Consultez les détails des projets de manière organisée.",
 f3:"Trois langues",f3d:"Arabe, anglais et français.",
-terms:"Conditions d'utilisation · Politique de confidentialité",dir:"ltr"
+terms:"Conditions d'utilisation · Politique de confidentialité"
 }};
 
 function set(id,v){document.getElementById(id).textContent=v}
+
+function renderProjects(lang){
+const t=T[lang];
+document.getElementById("projects").innerHTML=projects.map((p,i)=>`
+<div class="card">
+<h3>${p[0]}</h3>
+<div class="row"><span>${t.minimum}</span><span class="value">${p[1]}</span></div>
+<div class="rate">${p[2]}</div>
+<div class="row"><span>${t.daily}</span><span class="value">${p[2]}</span></div>
+<div class="row"><span>${t.duration}</span><span class="value">${t.days}</span></div>
+<button class="project-button">${t.details}</button>
+</div>`).join("");
+}
 
 function changeLanguage(lang){
 const t=T[lang];
 set("welcome",t.welcome);set("desc",t.desc);
 set("login",t.login);set("register",t.register);
 set("heroReg",t.register);set("heroLogin",t.login);
-set("projectsTitle",t.projectsTitle);set("projectsDesc",t.projectsDesc);
-set("p1",t.p1);set("p2",t.p2);set("p3",t.p3);
-set("min",t.min);set("min2",t.min);set("min3",t.min);
-set("daily1",t.daily);set("daily2",t.daily);set("daily3",t.daily);
-set("duration",t.duration);set("duration2",t.duration);set("duration3",t.duration);
-set("details",t.details);set("details2",t.details);set("details3",t.details);
-set("refTitle",t.refTitle);set("refDesc",t.refDesc);set("bonusTitle",t.bonusTitle);
+set("projectsTitle",t.projects);set("projectsDesc",t.choose);
+set("refTitle",t.ref);set("refDesc",t.refd);set("bonusTitle",t.bonus);
 set("r1",t.r1);set("r2",t.r2);set("r3",t.r3);
-set("why",t.why);set("whyDesc",t.whyDesc);
-set("f1",t.f1);set("f1d",t.f1d);set("f2",t.f2);set("f2d",t.f2d);
-set("f3",t.f3);set("f3d",t.f3d);set("terms",t.terms);
-document.getElementById("copy").textContent="© 2026 "+(lang==="ar"?"ربح تراكمي":lang==="en"?"Cumulative Profit":"Profits Cumulatifs");
+set("why",t.why);set("whyDesc",t.whyD);
+set("f1",t.f1);set("f1d",t.f1d);
+set("f2",t.f2);set("f2d",t.f2d);
+set("f3",t.f3);set("f3d",t.f3d);
+set("terms",t.terms);
+set("copy","© 2026 "+(lang==="ar"?"ربح تراكمي":lang==="en"?"Cumulative Profit":"Profits Cumulatifs"));
 document.documentElement.lang=lang;
-document.documentElement.dir=t.dir;
+document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+renderProjects(lang);
 localStorage.setItem("language",lang);
 }
 
-const lang=localStorage.getItem("language")||"ar";
-document.getElementById("language").value=lang;
-changeLanguage(lang);
+const saved=localStorage.getItem("language")||"ar";
+document.getElementById("language").value=saved;
+changeLanguage(saved);
 document.getElementById("language").addEventListener("change",e=>changeLanguage(e.target.value));
 </script>
+
 </body>
 </html>
